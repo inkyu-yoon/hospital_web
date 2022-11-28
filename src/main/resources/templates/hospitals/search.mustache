@@ -1,0 +1,41 @@
+{{>layouts/header}}
+
+<form class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">병원 이름</th>
+            <th scope="col">도로명 주소</th>
+            <th scope="col">번호</th>
+            <th scope="col">영업 상태</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {{#hospitals}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td><a href="/hospitals/{{id}}/reviews">{{hospitalName}}</a></td>
+
+                <td><a href="https://map.naver.com/v5/search/{{roadNameAddress}}"
+                       target="_blank">{{roadNameAddress}}</a></td>
+
+                <th scope="row">{{phone}}</th>
+                <th scope="row">{{status}}</th>
+            </tr>
+        {{/hospitals}}
+        </tbody>
+    </table>
+    <ul class="pagination justify-content-center">
+        {{#keyword}}
+            <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{previous}}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{next}}">Next</a></li>
+        {{/keyword}}
+        {{^keyword}}
+            <li class="page-item"><a class="page-link" href="?page={{previous}}">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{next}}">Next</a></li>
+        {{/keyword}}
+    </ul>
+</form>
+{{>layouts/footer}}

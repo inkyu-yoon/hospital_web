@@ -1,32 +1,38 @@
 package hospital.web.service;
 
-import hospital.web.domain.Hospital;
+import hospital.web.domain.entity.Hospital;
 import hospital.web.parser.ReadData;
-import org.springframework.beans.factory.annotation.Autowired;
+import hospital.web.repository.HospitalRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class HospitalService {
 
-    @PersistenceContext
-    private EntityManager em;
+    private final HospitalRepository hospitalRepository;
 
-    @Transactional
-    public void insertData() throws IOException {
-        ReadData readData = new ReadData();
-        List<Hospital> hospitals = readData.ReadLine("hospitalData.txt");
-
-        for (Hospital hospital : hospitals) {
-            em.persist(hospital);
-            String hospitalName = hospital.getHospitalName();
-            System.out.println(hospitalName);
+    public Page<Hospital> getHospitalListPage(String keyword , Pageable pageable) {
+        Page<Hospital> hospitals;
+        if (keyword == null) {
+            hospitals = hospitalRepository.findAll(pageable);
+        } else {
+            hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
         }
-
+        return hospitals;
     }
+
+    public Optional<Hospital> getById(Long id) {
+        Optional<Hospital> foundHospital = hospitalRepository.findById(id);
+        return foundHospital;
+    }
+
 }

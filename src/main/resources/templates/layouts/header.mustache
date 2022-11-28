@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">병원 정보 게시판 by Inkyu</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/hospitals">병원 전체 목록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/articles">게시판 전체 목록</a>
+                </li>
+
+            </ul>
+            <form class="d-flex" action="/hospitals" method="get">
+                {{#keyword}}
+                    <input type="text" class="form-control" name="keyword" value="{{keyword}}" placeholder="지역검색">
+                {{/keyword}}
+                {{^keyword}}
+                    <input type="text" class="form-control" name="keyword" placeholder="지역검색">
+                {{/keyword}}
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<p align="center">
+    <a href="/hospitals">
+        <img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/%EC%A0%9C%EB%AA%A9%20%EC%97%86%EB%8A%94%20%EA%B7%B8%EB%A6%BC.jpg" alt="제목 없는 그림" height = 150 width=1500  />    </a>
+</p>
+<hr class="border border-primary border-3 opacity-75">

@@ -1,0 +1,86 @@
+{{>layouts/header}}
+<div>
+
+    <form class="container">
+        {{#hospital}}
+            <div align="center">
+                <h1>
+                    <mark>{{hospitalName}}</mark>
+                    상세 정보
+                </h1>
+            </div>
+            <br>
+            <br>
+            <ul class="list-group">
+                <li class="list-group-item">ID : {{id}}</li>
+                <li class="list-group-item">개방 서비스 명 : {{openServiceName}}</li>
+                <li class="list-group-item">영업 상태 : {{status}}</li>
+                <li class="list-group-item">소재지 전화 : {{phone}}</li>
+                <li class="list-group-item">소재지 전체 주소 : {{fullAddress}}</li>
+                <li class="list-group-item">소재지 도로명 전체 주소 : {{roadNameAddress}}</li>
+                {{#zipCode}}
+                <li class="list-group-item">우편번호 : {{zipCode}}</li>
+                {{/zipCode}}
+                <li class="list-group-item">사업장명 : {{hospitalName}}</li>
+                <li class="list-group-item">업태구분명 : {{businessTypeName}}</li>
+                <li class="list-group-item">의료인 수 : {{healthcareProviderCount}}</li>
+                <li class="list-group-item">입원실 수 : {{patientRoomCount}}</li>
+                <li class="list-group-item">병상 수 : {{totalNumberOfBeds}}</li>
+                <li class="list-group-item">진료 과목 : {{medicalDepartment}}</li>
+            </ul>
+
+            <hr>
+            <br>
+
+<!--            <form class="container">-->
+<!--                <table class="table table-hover">-->
+<!--                    <thead>-->
+<!--                    <tr>-->
+<!--                        <th scope="col">Id</th>-->
+<!--                        <th scope="col">제목</th>-->
+<!--                        <th scope="col">내용</th>-->
+<!--                        <th scope="col">환자 이름</th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    {{#reviews}}-->
+<!--                        <tr>-->
+<!--                            <th scope="row">{{id}}</th>-->
+<!--                            <th scope="row">{{title}}</th>-->
+<!--                            <th scope="row">{{content}}</th>-->
+<!--                            <th scope="row">{{patientName}}</th>-->
+<!--                        </tr>-->
+<!--                    {{/reviews}}-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </form>-->
+
+        {{/hospital}}
+    </form>
+</div>
+
+<hr>
+<br>
+
+<form class="container" form action="/review" method="post">
+    <div class="mb-3">
+        <label class="form-label">환자 이름</label>
+        <input type="text" name="patientName" class="form-control" placeholder="이름">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">리뷰 제목</label>
+        <input type="text" name="title" class="form-control" placeholder="제목">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">리뷰 내용</label>
+        <textarea class="form-control" rows="2" name="content" placeholder="내용"></textarea>
+
+    </div>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="submit">리뷰 등록</button>
+    </div>
+
+</form>
+
