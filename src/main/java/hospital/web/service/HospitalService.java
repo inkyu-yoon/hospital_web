@@ -1,7 +1,6 @@
 package hospital.web.service;
 
 import hospital.web.domain.entity.Hospital;
-import hospital.web.parser.ReadData;
 import hospital.web.repository.HospitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,8 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 @Service

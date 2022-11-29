@@ -36,4 +36,18 @@ public class HospitalJpaRepository {
         return hospitals.size();
     }
 
+    @Transactional
+    public int saveOneByPureJpa(String filename) throws IOException {
+
+        ts.begin();
+
+        ReadData readData = new ReadData();
+        List<Hospital> hospitals = readData.readLine("hospitalData.txt");
+
+            em.persist(hospitals.get(0));
+
+        ts.commit();
+        return hospitals.size();
+    }
+
 }
