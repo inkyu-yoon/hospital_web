@@ -21,8 +21,6 @@ public class WebApplication {
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(WebApplication.class, args);
-		HospitalJpaRepository hospitalJpaRepository = new HospitalJpaRepository();
-		hospitalJpaRepository.saveOneByPureJpa("hospitalData.txt");
 
 	}
 }

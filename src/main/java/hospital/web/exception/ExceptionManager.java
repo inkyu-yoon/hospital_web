@@ -23,12 +23,7 @@ public class ExceptionManager {
     @ExceptionHandler(HospitalReviewAppException.class)
     public ResponseEntity<?> hospitalReviewAppExceptionHandler(HospitalReviewAppException e){
         return ResponseEntity.status(e.getErrorCode().getHttpStatus())
-                .body(Response.error(e.getErrorCode().name()));
+                .body(Response.error(e.getErrorCode().getMessage()));
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<?> exceptionHandler(RuntimeException e){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(ErrorCode.INTERNER_SERVER_ERROR.name());
-    }
 }

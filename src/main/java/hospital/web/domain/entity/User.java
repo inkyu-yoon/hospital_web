@@ -24,6 +24,12 @@ public class User {
     private String phone;
     private String email;
 
+    public User(String userName, String password, String phone, String email) {
+        this.userName = userName;
+        this.password = password;
+        this.phone = phone;
+        this.email = email;
+    }
 
     public User(UserJoinRequest userJoinRequest) {
         this.userName = userJoinRequest.getUserName();

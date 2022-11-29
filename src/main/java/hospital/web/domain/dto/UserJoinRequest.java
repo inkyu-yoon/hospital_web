@@ -15,8 +15,8 @@ public class UserJoinRequest {
     private String email;
     private String phone;
 
-    public User toEntity() {
-        return new User(this);
+    public User toEntity(String password) {
+        return new User(this.userName, password, this.phone, this.email);
 
     }
 }

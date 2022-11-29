@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
     DUPLICATED_USER_NAME(HttpStatus.CONFLICT, "user name is duplicatied"),
-    INTERNER_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "internal server error"),
     USER_NOT_FOUNDED(HttpStatus.NOT_FOUND, "not found error"),
     INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "bad Request");
 
