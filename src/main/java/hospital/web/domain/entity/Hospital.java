@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -63,6 +65,8 @@ public class Hospital {
     @Column(name = "medical_department",length = 350)
     private String medicalDepartment;
 
+    @OneToMany(mappedBy = "hospital")
+    private List<Review> reviews = new ArrayList<>();
 
     public Hospital(String openServiceName, Integer businessStatus, String phone, String zipCode, String fullAddress, String roadNameAddress, String hospitalName,
                     String businessTypeName, Integer healthcareProviderCount, Integer patientRoomCount, Integer totalNumberOfBeds, String medicalDepartment) {

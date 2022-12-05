@@ -2,9 +2,7 @@ package hospital.web.domain.dto;
 
 import hospital.web.domain.entity.Hospital;
 
-import javax.persistence.Column;
-
-public class HospitalReviewsDto {
+public class HospitalDetailsDto {
 
     private String openServiceName;
 
@@ -30,7 +28,7 @@ public class HospitalReviewsDto {
 
     private String medicalDepartment;
 
-    public HospitalReviewsDto(Hospital hospital) {
+    public HospitalDetailsDto(Hospital hospital) {
         this.openServiceName = hospital.getOpenServiceName();
         this.phone = hospital.getPhone();
         this.zipCode = hospital.getZipCode();

@@ -5,6 +5,8 @@
     <persistence-unit name="hospital">
         <class>hospital.web.domain.entity.Hospital
         </class>
+        <class>hospital.web.domain.entity.Review
+        </class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
@@ -19,7 +21,7 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>
