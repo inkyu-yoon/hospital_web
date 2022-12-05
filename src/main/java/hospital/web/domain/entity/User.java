@@ -5,7 +5,6 @@ import hospital.web.domain.dto.UserJoinRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -18,13 +17,19 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String userName;
+    @Column(nullable = false,unique = true)
+    private String userId;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String userName;
     private String phone;
     private String email;
 
-    public User(String userName, String password, String phone, String email) {
+    public User(String userId, String password, String userName, String phone, String email) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.phone = phone;
@@ -32,8 +37,9 @@ public class User {
     }
 
     public User(UserJoinRequest userJoinRequest) {
-        this.userName = userJoinRequest.getUserName();
+        this.userId = userJoinRequest.getUserName();
         this.password = userJoinRequest.getPassword();
+        this.userName = userJoinRequest.getUserName();
         this.phone = userJoinRequest.getPhone();
         this.email = userJoinRequest.getEmail();
     }

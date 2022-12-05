@@ -1,6 +1,5 @@
 package hospital.web.service;
 
-import hospital.web.domain.dto.UserJoinRequest;
 import hospital.web.domain.entity.User;
 import hospital.web.exception.ErrorCode;
 import hospital.web.exception.HospitalReviewAppException;
@@ -26,9 +25,9 @@ public class UserService {
 
     @Transactional
     public User join(User user) {
-        userRepository.findByUserName(user.getUserName())
+        userRepository.findByUserId(user.getUserId())
                 .ifPresent( user1 -> {
-                    throw new HospitalReviewAppException(ErrorCode.DUPLICATED_USER_NAME, String.format("UserName : %s",user1.getUserName()));
+                    throw new HospitalReviewAppException(ErrorCode.DUPLICATED_USER_NAME, String.format("UserId : %s",user1.getUserId()));
                 });
         userRepository.save(user);
 
@@ -36,14 +35,14 @@ public class UserService {
     }
 
 
-    public String login(String userName, String password) {
-        User user = userRepository.findByUserName(userName)
-                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, String.format("%s는 가입된 적이 없습니다.", userName)));
+    public String login(String userId, String password) {
+        User user = userRepository.findByUserId(userId)
+                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, String.format("%s는 가입된 적이 없습니다.", userId)));
 
         if(!encoder.matches(password,user.getPassword())){
             throw new HospitalReviewAppException(ErrorCode.INVALID_PASSWORD, String.format("userName 또는 password가 잘 못 되었습니다."));
         }
-        return JwtTokenUtil.createToken(userName, secretKey, expiredTimeMs);
+        return JwtTokenUtil.createToken(userId, secretKey, expiredTimeMs);
     }
 
 }

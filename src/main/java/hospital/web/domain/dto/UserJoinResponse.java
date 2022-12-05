@@ -9,12 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class UserJoinResponse {
+    private String userId;
     private String userName;
-    private String email;
 
     public UserJoinResponse(User user) {
+        this.userId = user.getUserId();
         this.userName = user.getUserName();
-        this.email = user.getEmail();
-
     }
 }

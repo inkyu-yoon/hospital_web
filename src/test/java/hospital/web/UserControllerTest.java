@@ -1,7 +1,7 @@
 package hospital.web;
 
 import com.google.gson.Gson;
-import hospital.web.configuration.EncrypterConfig;
+import hospital.web.configuration.EncryptorConfig;
 import hospital.web.controller.UserController;
 import hospital.web.domain.dto.UserJoinRequest;
 import hospital.web.domain.dto.UserLoginRequest;
@@ -13,9 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest({UserController.class, EncrypterConfig.class})
+@WebMvcTest({UserController.class, EncryptorConfig.class})
 class UserControllerTest {
 
     @Autowired
@@ -44,8 +42,9 @@ class UserControllerTest {
     @WithMockUser
     void join_success() throws Exception {
         UserJoinRequest userJoinRequest =
-                new UserJoinRequest("yooninkyu",
+                new UserJoinRequest("inkyu312",
                         "12345",
+                        "윤인규",
                         "ikyoon",
                         "010-0100-0100");
 
@@ -68,7 +67,12 @@ class UserControllerTest {
     @WithMockUser
     void join_fail() throws Exception {
 
-        UserJoinRequest userJoinRequest = new UserJoinRequest("yooninkyu", "12345", "ikyoon", "010-0100-0100");
+        UserJoinRequest userJoinRequest =
+                new UserJoinRequest("inkyu312",
+                        "12345",
+                        "윤인규",
+                        "ikyoon",
+                        "010-0100-0100");
 
         when(userService.join(any())).thenThrow(new HospitalReviewAppException(ErrorCode.DUPLICATED_USER_NAME, ""));
 

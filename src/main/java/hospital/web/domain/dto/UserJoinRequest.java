@@ -10,13 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserJoinRequest {
-    private String userName;
+    private String userId;
     private String password;
+    private String userName;
     private String email;
     private String phone;
 
     public User toEntity(String password) {
-        return new User(this.userName, password, this.phone, this.email);
+        return new User(this.userId, password, this.userName, this.phone, this.email);
 
     }
 }
