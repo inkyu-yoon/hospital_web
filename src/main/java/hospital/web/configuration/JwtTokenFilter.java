@@ -19,7 +19,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.net.URLConnection;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
-            return ;
+            return;
         }
         String token;
         try {
@@ -46,7 +45,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         } catch (Exception e) {
             log.error("token 추출에 실패했습니다.");
             filterChain.doFilter(request, response);
-            return ;
+            return;
         }
         // [Bearer sadfadfsaf...토큰] 이런식으로 값이 나오므로 split 후 index 1
         // Jwt 는 OAuth 방식이라서 Bearer 을 붙여서 보낸다.(일종의 식별자)
@@ -54,9 +53,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         if (JwtTokenFilter.isExpired(token, secretKey)) {
             filterChain.doFilter(request, response);
-            return ;
+            return;
         }
-        String userId = JwtTokenUtil.getUserId(token, secretKey);
+        String userId = JwtTokenUtil.getUserId(extractClaims(token,secretKey));
         User user = userService.getUserByUserId(userId);
 
         // 권한을 줄지 안줄지 결정하는 메서드
@@ -73,6 +72,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     public static boolean isExpired(String token, String secretKey) {
         Date expiredDate = extractClaims(token, secretKey).getExpiration();
+        log.info("expiredDate {} new Date() {} expiredDate.before(new Date()) {}",expiredDate,new Date(),expiredDate.before(new Date()));
         return expiredDate.before(new Date());
     }
 
