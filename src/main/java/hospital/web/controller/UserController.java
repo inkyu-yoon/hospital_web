@@ -33,12 +33,22 @@ public class UserController {
         return Response.success(userJoinResponse);
 
     }
+/**
+{
+    "userId":"MyId",
+    "password":"12345",
+    "userName":"myName",
+    "email":"Myemail@email.com",
+    "phone":"000-000-0000"
 
+}
+ **/
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
         String token = userService.login(userLoginRequest.getUserId(), userLoginRequest.getPassword());
         return Response.success(new UserLoginResponse(token));
     }
+
 
 
 }

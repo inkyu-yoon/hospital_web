@@ -45,4 +45,9 @@ public class UserService {
         return JwtTokenUtil.createToken(userId, secretKey, expiredTimeMs);
     }
 
+    public User getUserByUserId(String userId) {
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, ""));
+    }
+
 }

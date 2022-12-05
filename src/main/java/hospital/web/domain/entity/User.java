@@ -28,12 +28,18 @@ public class User {
     private String phone;
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_Role")
+    private UserRole userRole;
+
     public User(String userId, String password, String userName, String phone, String email) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.userRole = UserRole.USER;
+
     }
 
     public User(UserJoinRequest userJoinRequest) {
@@ -42,5 +48,6 @@ public class User {
         this.userName = userJoinRequest.getUserName();
         this.phone = userJoinRequest.getPhone();
         this.email = userJoinRequest.getEmail();
+        this.userRole = UserRole.USER;
     }
 }
