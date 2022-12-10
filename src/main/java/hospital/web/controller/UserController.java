@@ -1,10 +1,10 @@
 package hospital.web.controller;
 
 import hospital.web.domain.Response;
-import hospital.web.domain.dto.UserJoinRequest;
-import hospital.web.domain.dto.UserJoinResponse;
-import hospital.web.domain.dto.UserLoginRequest;
-import hospital.web.domain.dto.UserLoginResponse;
+import hospital.web.domain.dto.join.UserJoinRequest;
+import hospital.web.domain.dto.join.UserJoinResponse;
+import hospital.web.domain.dto.login.UserLoginRequest;
+import hospital.web.domain.dto.login.UserLoginResponse;
 import hospital.web.domain.entity.User;
 import hospital.web.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,18 +34,18 @@ public class UserController {
 
     }
 /**
-{
-    "userId":"MyId",
-    "password":"12345",
-    "userName":"myName",
-    "email":"Myemail@email.com",
-    "phone":"000-000-0000"
+ {
+ "userAccount":"MyId",
+ "password":"12345",
+ "userName":"윤인규",
+ "email":"Myemail@email.com",
+ "phone":"000-000-0000"
 
-}
+ }
  **/
     @PostMapping("/login")
     public Response<UserLoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
-        String token = userService.login(userLoginRequest.getUserId(), userLoginRequest.getPassword());
+        String token = userService.login(userLoginRequest.getUserAccount(), userLoginRequest.getPassword());
         return Response.success(new UserLoginResponse(token));
     }
 

@@ -1,4 +1,4 @@
-package hospital.web.domain.dto;
+package hospital.web.domain.dto.join;
 
 
 import hospital.web.domain.entity.User;
@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserJoinRequest {
-    private String userId;
+    private String userAccount;
     private String password;
     private String userName;
     private String email;
     private String phone;
 
     public User toEntity(String password) {
-        return new User(this.userId, password, this.userName, this.phone, this.email);
+        return new User(this.userAccount, password, this.userName, this.phone, this.email);
 
     }
 }

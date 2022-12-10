@@ -1,7 +1,7 @@
 package hospital.web.domain.entity;
 
 
-import hospital.web.domain.dto.UserJoinRequest;
+import hospital.web.domain.dto.join.UserJoinRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +15,11 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "user_id",nullable = false,unique = true)
-    private String userId;
+    @Column(name = "user_account",nullable = false,unique = true)
+    private String userAccount;
 
     @Column(nullable = false)
     private String password;
@@ -32,8 +33,8 @@ public class User {
     @Column(name = "user_Role")
     private UserRole userRole;
 
-    public User(String userId, String password, String userName, String phone, String email) {
-        this.userId = userId;
+    public User(String userAccount, String password, String userName, String phone, String email) {
+        this.userAccount = userAccount;
         this.userName = userName;
         this.password = password;
         this.phone = phone;
@@ -43,7 +44,7 @@ public class User {
     }
 
     public User(UserJoinRequest userJoinRequest) {
-        this.userId = userJoinRequest.getUserName();
+        this.userAccount = userJoinRequest.getUserAccount();
         this.password = userJoinRequest.getPassword();
         this.userName = userJoinRequest.getUserName();
         this.phone = userJoinRequest.getPhone();

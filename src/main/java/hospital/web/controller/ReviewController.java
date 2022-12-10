@@ -1,14 +1,12 @@
 package hospital.web.controller;
 
 import hospital.web.domain.Response;
-import hospital.web.domain.dto.ReviewCreateRequest;
-import hospital.web.domain.dto.ReviewCreateResponse;
-import hospital.web.domain.dto.UserJoinResponse;
+import hospital.web.domain.dto.review.ReviewCreateRequest;
+import hospital.web.domain.dto.review.ReviewCreateResponse;
 import hospital.web.domain.entity.Review;
-import hospital.web.repository.HospitalRepository;
-import hospital.web.repository.ReviewRepository;
 import hospital.web.service.HospitalService;
 import hospital.web.service.ReviewService;
+import hospital.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -25,15 +23,15 @@ public class ReviewController {
 
     private final HospitalService hospitalService;
     private final ReviewService reviewService;
+    private final UserService userService;
 
     @PostMapping
     public Response<ReviewCreateResponse> write(@RequestBody ReviewCreateRequest reviewCreateRequest, Authentication authentication) {
-        Review review = new Review(reviewCreateRequest, hospitalService.getById(reviewCreateRequest.getHospitalId()).get());
+        Review review = new Review(reviewCreateRequest, hospitalService.getById(reviewCreateRequest.getHospitalId()).get(), userService.getUserByUserAccount(reviewCreateRequest.getUserAccount()));
         if (authentication.isAuthenticated()) {
             reviewService.createReview(review);
         }
         ReviewCreateResponse reviewCreateResponse = new ReviewCreateResponse(review, "리뷰 등록 성공");
-        log.info("Controller user : {}", authentication.getName());
 
         return Response.success(reviewCreateResponse);
     }
@@ -41,7 +39,7 @@ public class ReviewController {
      {
      "title":"리뷰 제목입니다.",
      "content":"리뷰 내용입니다.",
-     "userId" : "윤인규",
+     "userAccount" : "MyId",
      "hospitalId": 1
      }
      */

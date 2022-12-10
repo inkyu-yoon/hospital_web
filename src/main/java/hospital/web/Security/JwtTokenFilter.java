@@ -1,8 +1,7 @@
-package hospital.web.configuration;
+package hospital.web.Security;
 
 import hospital.web.domain.entity.User;
 import hospital.web.service.UserService;
-import hospital.web.utils.JwtTokenUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -55,11 +54,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        String userId = JwtTokenUtil.getUserId(extractClaims(token,secretKey));
-        User user = userService.getUserByUserId(userId);
+        String userAccount = extractClaims(token, secretKey).get("userAccount").toString();
+        User user = userService.getUserByUserAccount(userAccount);
 
         // 권한을 줄지 안줄지 결정하는 메서드
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserId(), null, List.of(new SimpleGrantedAuthority(user.getUserRole().name())));
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserAccount(), null, List.of(new SimpleGrantedAuthority(user.getUserRole().name())));
 
         //"USER" 라는 권한을 부여,
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -1,4 +1,4 @@
-package hospital.web.domain.dto;
+package hospital.web.domain.dto.join;
 
 
 import hospital.web.domain.entity.User;
@@ -9,11 +9,11 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class UserJoinResponse {
-    private String userId;
+    private String userAccount;
     private String userName;
 
     public UserJoinResponse(User user) {
-        this.userId = user.getUserId();
+        this.userAccount = user.getUserAccount();
         this.userName = user.getUserName();
     }
 }

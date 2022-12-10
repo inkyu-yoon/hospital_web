@@ -1,6 +1,5 @@
-package hospital.web.domain.dto;
+package hospital.web.domain.dto.login;
 
-import hospital.web.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserLoginResponse {
-    private String token;
+public class UserLoginRequest {
+    private String userAccount;
+    private String password;
 }

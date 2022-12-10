@@ -1,4 +1,4 @@
-package hospital.web.domain.dto;
+package hospital.web.domain.dto.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ public class ReviewCreateRequest {
 
     private String title;
     private String content;
-    private String userId;
+    private String userAccount;
     private Long hospitalId;
 
 }
