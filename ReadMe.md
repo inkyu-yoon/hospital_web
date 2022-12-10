@@ -1,6 +1,14 @@
 # 전국 병의원 데이터 웹 페이지 만들기
 
+## ERD
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221211025814358.png" alt="image-20221211025814358" style="zoom:120%;" />
+</p>
+
 <br>
+
+## 데이터 정보 및 라이브러리
 
 데이터 출처 : https://www.localdata.go.kr/devcenter/dataDown.do?menuNo=20001
 
@@ -14,17 +22,24 @@
 
 - Gradle 프로젝트 빌드
 
-  ```
+  ```groovy
   dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-  	implementation 'org.springframework.boot:spring-boot-starter-mustache'
-  	implementation 'org.springframework.boot:spring-boot-starter-web'
-  	implementation 'com.mysql:mysql-connector-j:8.0.31'
-  	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
-  	compileOnly 'org.projectlombok:lombok'
-  	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-  	annotationProcessor 'org.projectlombok:lombok'
-  	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.mysql:mysql-connector-j:8.0.31'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.1'
+	implementation 'com.google.code.gson:gson:2.10'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//security 관련 라이브러리
+	implementation 'org.springframework.security:spring-security-test'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.7.5'
+
   }
   ```
 
@@ -63,6 +78,9 @@ logging:
   level:
     org.hibernate.sql: debug
 
+jwt:
+  token:
+    secret: hello
 ```
 
 
