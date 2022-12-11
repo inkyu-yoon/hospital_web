@@ -22,8 +22,6 @@ public class Post extends BaseEntity{
 
     private String title;
     private String content;
-    private String isUpdated;
-
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -41,6 +39,5 @@ public class Post extends BaseEntity{
         this.title = postUpdateRequest.getTitle();
         this.content = postUpdateRequest.getContent();
         this.user = user;
-        this.isUpdated = "(수정됨)";
     }
 }

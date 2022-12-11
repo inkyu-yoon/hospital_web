@@ -30,8 +30,10 @@ public class PostShow {
         this.createdDate = format;
         LocalDateTime updated = post.getUpdatedDate();
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
-        String format2 = created.format(dtf2);
+        String format2 = updated.format(dtf2);
         this.updatedDate = format2;
-        this.isUpdated = post.getIsUpdated();
+        if (post.getCreatedDate() != post.getUpdatedDate()) {
+            this.isUpdated = "(수정됨)";
+        }
     }
 }
