@@ -2,7 +2,7 @@ package hospital.web;
 
 import com.google.gson.Gson;
 import hospital.web.configuration.EncryptorConfig;
-import hospital.web.controller.UserController;
+import hospital.web.controller.UserRestController;
 import hospital.web.domain.dto.join.UserJoinRequest;
 import hospital.web.domain.dto.login.UserLoginRequest;
 import hospital.web.domain.entity.User;
@@ -27,8 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-@WebMvcTest({UserController.class, EncryptorConfig.class})
-class UserControllerTest {
+@WebMvcTest({UserRestController.class, EncryptorConfig.class})
+class UserRestControllerTest {
 
     @Autowired
     MockMvc mockMvc;

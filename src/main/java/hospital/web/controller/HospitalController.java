@@ -2,8 +2,13 @@ package hospital.web.controller;
 
 import hospital.web.domain.dto.HospitalListDto;
 import hospital.web.domain.dto.HospitalDetailsDto;
+import hospital.web.domain.dto.review.ReviewCreateRequest;
+import hospital.web.domain.dto.review.ReviewCreateResponse;
 import hospital.web.domain.entity.Hospital;
+import hospital.web.domain.entity.Review;
 import hospital.web.service.HospitalService;
+import hospital.web.service.ReviewService;
+import hospital.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class HospitalController {
 
     private final HospitalService hospitalService;
+
 
     @GetMapping("")
     public String searchList(@RequestParam(required = false) String keyword, Model model, Pageable pageable) {
@@ -40,5 +46,7 @@ public class HospitalController {
         return "hospitals/details";
 
     }
+
+
 
 }

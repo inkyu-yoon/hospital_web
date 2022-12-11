@@ -1,6 +1,10 @@
 package hospital.web.domain.dto;
 
 import hospital.web.domain.entity.Hospital;
+import hospital.web.domain.entity.Review;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HospitalDetailsDto {
 
@@ -28,6 +32,8 @@ public class HospitalDetailsDto {
 
     private String medicalDepartment;
 
+    private List<Review> reviews = new ArrayList<>();
+
     public HospitalDetailsDto(Hospital hospital) {
         this.openServiceName = hospital.getOpenServiceName();
         this.phone = hospital.getPhone();
@@ -50,6 +56,8 @@ public class HospitalDetailsDto {
         } else {
             this.status = "취소/말소/만료/정지/중지";
         }
+
+        this.reviews = hospital.getReviews();
     }
 
 }

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/users")
 @RequiredArgsConstructor
 @Slf4j
-public class UserController {
+public class UserRestController {
 
     private final UserService userService;
     private final BCryptPasswordEncoder encoder;

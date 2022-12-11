@@ -1,8 +1,7 @@
 {{>layouts/header}}
-<div>
-
-    <form class="container">
-        {{#hospital}}
+{{#hospital}}
+    <div>
+        <form class="container">
             <div align="center">
                 <h1>
                     <mark>{{hospitalName}}</mark>
@@ -19,7 +18,7 @@
                 <li class="list-group-item">소재지 전체 주소 : {{fullAddress}}</li>
                 <li class="list-group-item">소재지 도로명 전체 주소 : {{roadNameAddress}}</li>
                 {{#zipCode}}
-                <li class="list-group-item">우편번호 : {{zipCode}}</li>
+                    <li class="list-group-item">우편번호 : {{zipCode}}</li>
                 {{/zipCode}}
                 <li class="list-group-item">사업장명 : {{hospitalName}}</li>
                 <li class="list-group-item">업태구분명 : {{businessTypeName}}</li>
@@ -32,55 +31,64 @@
             <hr>
             <br>
 
-<!--            <form class="container">-->
-<!--                <table class="table table-hover">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th scope="col">Id</th>-->
-<!--                        <th scope="col">제목</th>-->
-<!--                        <th scope="col">내용</th>-->
-<!--                        <th scope="col">환자 이름</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                    {{#reviews}}-->
-<!--                        <tr>-->
-<!--                            <th scope="row">{{id}}</th>-->
-<!--                            <th scope="row">{{title}}</th>-->
-<!--                            <th scope="row">{{content}}</th>-->
-<!--                            <th scope="row">{{patientName}}</th>-->
-<!--                        </tr>-->
-<!--                    {{/reviews}}-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </form>-->
+            <form class="container">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">내용</th>
+                        <th scope="col">환자 아이디</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#reviews}}
+                        <tr>
+                            <th scope="row">{{id}}</th>
+                            <th scope="row">{{title}}</th>
+                            <th scope="row">{{content}}</th>
+                            {{#user}}
+                                <th scope="row">{{userAccount}}</th>
+                            {{/user}}
+                        </tr>
+                    {{/reviews}}
+                    </tbody>
+                </table>
+            </form>
 
-        {{/hospital}}
+        </form>
+    </div>
+
+    <hr>
+    <br>
+
+    <form class="container" form action="" method="post">
+        <input type = "hidden" name ="hospitalId" value="{{id}}"/>
+
+        <div class="mb-3">
+            <label class="form-label">user ID</label>
+            <input type="text" name="userAccount" class="form-control" placeholder="아이디">
+        </div>
+
+<!--        <div class="mb-3">-->
+<!--            <label class="form-label">password</label>-->
+<!--            <input type="text" name="password" class="form-control" placeholder="비밀번호">-->
+<!--        </div>-->
+
+        <div class="mb-3">
+            <label class="form-label">리뷰 제목</label>
+            <input type="text" name="title" class="form-control" placeholder="제목">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">리뷰 내용</label>
+            <textarea class="form-control" rows="2" name="content" placeholder="내용"></textarea>
+
+        </div>
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button class="btn btn-primary" type="submit">리뷰 등록</button>
+        </div>
+
     </form>
-</div>
-
-<hr>
-<br>
-
-<form class="container" form action="/review" method="post">
-    <div class="mb-3">
-        <label class="form-label">환자 이름</label>
-        <input type="text" name="patientName" class="form-control" placeholder="이름">
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">리뷰 제목</label>
-        <input type="text" name="title" class="form-control" placeholder="제목">
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">리뷰 내용</label>
-        <textarea class="form-control" rows="2" name="content" placeholder="내용"></textarea>
-
-    </div>
-    <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-primary" type="submit">리뷰 등록</button>
-    </div>
-
-</form>
+{{/hospital}}
 

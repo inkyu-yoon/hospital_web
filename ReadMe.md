@@ -1,3 +1,4 @@
+
 # 전국 병의원 데이터 웹 페이지 만들기
 
 ## ERD
@@ -52,7 +53,7 @@
 
 
 
-### DDL 사용해서 데이터 테이블 생성하기
+### DDL 사용해서 데이터 테이블 생성 및 DB에 데이터 입력
 
 1. application.yml 설정
 
@@ -60,16 +61,18 @@
 server:
   servlet:
     encoding:
-      force-response: true #한글 깨짐 오류 해결
+      force-response: true
+      
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/project-db
+    url: jdbc:mysql://localhost:3306/project-db #ec2 서버 사용시, 환경변수 사용
     username: root
     password: 12341234
     driver-class-name: com.mysql.cj.jdbc.Driver
+    
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create  #테이블 생성 후 update 로 변경
     show-sql: true
     database-platform: org.hibernate.dialect.MySQL55Dialect
     database: mysql
@@ -80,15 +83,14 @@ logging:
 
 jwt:
   token:
-    secret: hello
+    secret: hello # Jwt 토큰 생성 시 사용, 실제 사용하는 값은 환경변수로 입력
 ```
 
 
 
-2. 데이터베이스 연결을 위한 환경변수 추가
-
+2. 데이터베이스 연결 & Jwt 토큰 사용을 위한 환경변수 추가
 ```
-SPRING_DATASOURCE_URL=jdbc:mysql://데이터베이스연결된ec2주소 :3306/db명 ;SPRING_DATASOURCE_PASSWORD=비밀번호
+SPRING_DATASOURCE_URL=jdbc:mysql://데이터베이스연결된ec2주소 :3306/db명 ;SPRING_DATASOURCE_PASSWORD=비밀번호 ; JWT_TOKEN_SECRET=비밀키
 ```
 
 
