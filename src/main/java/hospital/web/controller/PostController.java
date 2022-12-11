@@ -1,6 +1,7 @@
 package hospital.web.controller;
 
 import hospital.web.domain.dto.post.PostCreateRequest;
+import hospital.web.domain.dto.post.PostUpdateRequest;
 import hospital.web.domain.entity.Post;
 import hospital.web.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -65,10 +66,10 @@ public class PostController {
     }
 
     @PostMapping("/{id}/update")
-    public String update(@PathVariable(name = "id") Long id, PostCreateRequest postCreateRequest, Model model) {
-        Post post = postService.createPost(new Post(postCreateRequest));
-        model.addAttribute("post", post);
-        return "redirect:/posts/" + post.getId();
+    public String update(PostUpdateRequest postUpdateRequest) {
+        Post updatedPost = new Post(postUpdateRequest);
+        postService.createPost(updatedPost);
+        return "redirect:/posts/" + updatedPost.getId();
     }
 
     @GetMapping("/{id}/delete")

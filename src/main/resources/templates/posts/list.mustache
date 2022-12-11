@@ -12,8 +12,12 @@
         {{#posts}}
             <tr>
                 <th>{{id}}</th>
+                {{#title}}
                 <td><a href="/posts/{{id}}">{{title}}</a></td>
+                {{/title}}
+            {{#content}}
                 <td>{{content}}</td>
+                {{/content}}
             </tr>
         {{/posts}}
         </tbody>

@@ -1,6 +1,7 @@
 package hospital.web.domain.entity;
 
 import hospital.web.domain.dto.post.PostCreateRequest;
+import hospital.web.domain.dto.post.PostUpdateRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +21,15 @@ public class Post {
     private String title;
     private String content;
 
-//    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_id")
-//    private User user;
-
 
     public Post(PostCreateRequest postCreateRequest) {
         this.title = postCreateRequest.getTitle();
         this.content = postCreateRequest.getContent();
+    }
+
+    public Post(PostUpdateRequest postUpdateRequest) {
+        this.id = postUpdateRequest.getId();
+        this.title = postUpdateRequest.getTitle();
+        this.content = postUpdateRequest.getContent();
     }
 }
