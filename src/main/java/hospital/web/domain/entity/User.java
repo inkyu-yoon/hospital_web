@@ -2,6 +2,7 @@ package hospital.web.domain.entity;
 
 
 import hospital.web.domain.dto.join.UserJoinRequest;
+import hospital.web.domain.dto.join.UserJoinRequestByForm;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +40,16 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.userRole = UserRole.USER;
+
+    }
+
+    public User(UserJoinRequestByForm userJoinRequestByForm) {
+        this.userAccount = userJoinRequestByForm.getUserAccount();
+        this.password = userJoinRequestByForm.getPassword();
+        this.userName = userJoinRequestByForm.getUserName();
+        this.phone = userJoinRequestByForm.getPhone();
+        this.email = userJoinRequestByForm.getEmail();
         this.userRole = UserRole.USER;
 
     }

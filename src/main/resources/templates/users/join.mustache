@@ -1,0 +1,32 @@
+{{>layouts/header}}
+<form class = "container" form action="/users/join" method="post">
+    <div class="mb-3">
+        <label  class="form-label">회원 계정</label>
+        <input type="text" name = "userAccount" class="form-control" placeholder="계정명">
+    </div>
+
+    <div class="mb-3">
+        <label  class="form-label">비밀번호</label>
+        <input type="text" name = "password" class="form-control" placeholder="비밀번호">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">이름</label>
+        <input type="text" name = "userName" class="form-control" placeholder="이름">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">이메일</label>
+        <input type="text" name = "email" class="form-control" placeholder="user@example.com">
+    </div>
+    <div class="mb-3">
+        <label  class="form-label">전화번호</label>
+        <input type="text" name = "phone" class="form-control" placeholder="000-0000-0000">
+    </div>
+
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-primary" type="submit">회원 가입</button>
+    </div>
+
+</form>
+{{>layouts/footer}}
+
+

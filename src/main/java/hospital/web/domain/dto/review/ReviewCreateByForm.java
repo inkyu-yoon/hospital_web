@@ -9,5 +9,6 @@ public class ReviewCreateByForm {
     private String title;
     private String content;
     private String userAccount;
+    private String password;
     private Long hospitalId;
 }

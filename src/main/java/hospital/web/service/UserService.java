@@ -51,4 +51,5 @@ public class UserService {
                 .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, ""));
     }
 
+
 }

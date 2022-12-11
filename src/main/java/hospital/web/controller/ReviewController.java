@@ -11,7 +11,9 @@ import hospital.web.service.ReviewService;
 import hospital.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,13 +26,27 @@ public class ReviewController {
     private final UserService userService;
     private final HospitalService hospitalService;
     private final ReviewService reviewService;
+    private final BCryptPasswordEncoder encoder;
 
     @PostMapping("")
-    public String createReview(ReviewCreateByForm reviewCreateByForm) {
+    public String createReview(ReviewCreateByForm reviewCreateByForm, Model model) {
         Hospital hospital = hospitalService.getById(reviewCreateByForm.getHospitalId()).get();
+        log.info("{}{}",reviewCreateByForm.getUserAccount(),reviewCreateByForm.getPassword());
         User user = userService.getUserByUserAccount(reviewCreateByForm.getUserAccount());
-        Review review = new Review(reviewCreateByForm, hospital,user);
-        reviewService.createReview(review);
+        if (user == null) {
+            model.addAttribute("message", String.format("%s ID는 존재하지 않습니다.", reviewCreateByForm.getUserAccount()));
+            return "posts/error";
+        }
+        log.info("{}",user.getPassword());
+        log.info("{}",encoder.matches(reviewCreateByForm.getPassword(), user.getPassword()));
+
+        if (encoder.matches(reviewCreateByForm.getPassword(), user.getPassword())) {
+
+            Review review = new Review(reviewCreateByForm, hospital, user);
+            reviewService.createReview(review);
+            return "redirect:/hospitals/" + reviewCreateByForm.getHospitalId() + "/details";
+        }
         return "redirect:/hospitals/"+reviewCreateByForm.getHospitalId()+"/details";
+
     }
 }
