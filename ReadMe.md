@@ -135,5 +135,15 @@ SQL 쿼리문의 결과와 같이, 총 121003개의 데이터가 잘 입력되�
 
 ---
 
+## 2. 병원 정보 표시 및 검색 기능
 
+### 메인 화면 
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212045103811.png" alt="image-20221212045103811" style="zoom: 60%;" />
+</p>
+
+화면 구성은 [Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction/) 을 사용하였다.
+
+- [layout header](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/resources/templates/layouts/header.mustache)
+- [layout header](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/resources/templates/layouts/header.mustache)
 
