@@ -1,15 +1,15 @@
 
-# 전국 병의원 데이터 웹 페이지 만들기
+# 전국 병·의원 데이터 웹 페이지 만들기
 
 ## ERD
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221211025814358.png" alt="image-20221211025814358" style="zoom:120%;" />
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/erd.png" alt="erd" style="zoom:130%;" />
 </p>
 
 <br>
 
-## 데이터 정보 및 라이브러리
+## 병·의원 데이터 정보 및 라이브러리
 
 데이터 출처 : https://www.localdata.go.kr/devcenter/dataDown.do?menuNo=20001
 
@@ -134,4 +134,6 @@ SQL 쿼리문의 결과와 같이, 총 121003개의 데이터가 잘 입력되�
 <br>
 
 ---
+
+
 
