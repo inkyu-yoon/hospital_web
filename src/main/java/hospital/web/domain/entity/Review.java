@@ -1,5 +1,6 @@
 package hospital.web.domain.entity;
 
+import hospital.web.domain.dto.review.ReviewCreateByForm;
 import hospital.web.domain.dto.review.ReviewCreateRequest;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,6 +36,13 @@ public class Review extends BaseEntity {
     public Review(ReviewCreateRequest reviewCreateRequest,Hospital hospital,User user) {
         this.title = reviewCreateRequest.getTitle();
         this.content = reviewCreateRequest.getContent();
+        this.user = user;
+        this.hospital = hospital;
+    }
+
+    public Review(ReviewCreateByForm reviewCreateByForm,Hospital hospital,User user) {
+        this.title = reviewCreateByForm.getTitle();
+        this.content = reviewCreateByForm.getContent();
         this.user = user;
         this.hospital = hospital;
     }

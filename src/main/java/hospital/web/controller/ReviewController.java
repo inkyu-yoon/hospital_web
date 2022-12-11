@@ -1,9 +1,11 @@
 package hospital.web.controller;
 
 import hospital.web.domain.dto.HospitalDetailsDto;
+import hospital.web.domain.dto.review.ReviewCreateByForm;
 import hospital.web.domain.dto.review.ReviewCreateRequest;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.domain.entity.Review;
+import hospital.web.domain.entity.User;
 import hospital.web.service.HospitalService;
 import hospital.web.service.ReviewService;
 import hospital.web.service.UserService;
@@ -23,17 +25,12 @@ public class ReviewController {
     private final HospitalService hospitalService;
     private final ReviewService reviewService;
 
-    @PostMapping("/create")
-    public String createReview(ReviewCreateRequest reviewCreateRequest) {
-        log.info("{},{},{},{}",reviewCreateRequest.getTitle(),reviewCreateRequest.getContent(),reviewCreateRequest.getUserAccount(),reviewCreateRequest.getHospitalId());
-        Hospital hospital = hospitalService.getById(reviewCreateRequest.getHospitalId()).get();
-        Review review = new Review(reviewCreateRequest, hospital, userService.getUserByUserAccount(reviewCreateRequest.getUserAccount()));
-
+    @PostMapping("")
+    public String createReview(ReviewCreateByForm reviewCreateByForm) {
+        Hospital hospital = hospitalService.getById(reviewCreateByForm.getHospitalId()).get();
+        User user = userService.getUserByUserAccount(reviewCreateByForm.getUserAccount());
+        Review review = new Review(reviewCreateByForm, hospital,user);
         reviewService.createReview(review);
-
-        HospitalDetailsDto hospitalDetailsDto = new HospitalDetailsDto(hospital);
-
-        return "/hospitals/search";
-
+        return "redirect:/hospitals/"+reviewCreateByForm.getHospitalId()+"/details";
     }
 }
