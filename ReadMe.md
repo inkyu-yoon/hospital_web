@@ -135,15 +135,70 @@ SQL 쿼리문의 결과와 같이, 총 121003개의 데이터가 잘 입력되�
 
 ---
 
-## 2. 병원 정보 표시 및 검색 기능
+## 2. 회원 가입 기능과 암호화
+
+`BcryptPasswordEncoder` 클래스의 `encode()` 메서드를 사용하여 암호화 한 뒤 DB에 저장하도록 구현하였고,
+
+병원 리뷰 작성 & 게시판 게시글 작성 시 ID와 비밀번호를 함께 입력받도록 하여, `matches()` 메서드로 DB에 암호화 되어 있는 비밀번호와 같은지 확인한 뒤
+
+일치하는 경우에만 입력할 수 있고록 구현하였다.
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212051256248.png" alt="image-20221212051256248" style="zoom: 67%;" />
+</p>
+
+회원 가입 시, 계정명, 비밀번호, 이름, 이메일, 전화번호를 입력받도록 하였고, 회원 계정명은 `unique` 속성을 부여하여, 중복될 수 없다.
+
+form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
+
+- [User Controller 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/UserController.java)
+
+---
+
+## 3. 병원 정보 표시 및 검색 기능
 
 ### 메인 화면 
 <p align="center">
 <img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212045103811.png" alt="image-20221212045103811" style="zoom: 60%;" />
 </p>
 
-화면 구성은 [Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction/) 을 사용하였다.
+화면 구성은 [Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction/) 을 사용하였고, template 라이브러리는  mustache를 사용하였다.
 
-- [layout header](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/resources/templates/layouts/header.mustache)
-- [layout header](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/resources/templates/layouts/header.mustache)
+#### 1. 지역명 검색 기능
+- [Hospital Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/HospitalController.java)
+- [Hospital repository 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/repository/HospitalRepository.java)
+> JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙과 Pageable 클래스를 사용해서 약 12만건 데이터 페이징 구현
+
+<br>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212050448219.png" alt="image-20221212050448219" style="zoom:67%;" />
+</p>
+
+`울산` 검색 시 위와 같이 데이터가 필터링 되어 표시된다.
+
+#### 2. 병원 상세 정보 및 리뷰 작성 기능
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212051906612.png" alt="image-20221212051906612" style="zoom:67%;" />
+</p>
+
+병원 이름 클릭 시, 위와 같은 상세 정보가 표시되고, 병원 도로명 주소 클릭 시, 네이버 맵 `search` api를 적용하여 검색되도록 구현하였다.
+
+```
+<td><a href="/hospitals/{{id}}/details">{{hospitalName}}</a></td> 
+<td><a href="https://map.naver.com/v5/search/{{roadNameAddress}} "target="_blank">{{roadNameAddress}}</a></td>
+```
+
+<br>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212052245550.png" alt="image-20221212052245550" style="zoom:67%;" />
+</p>
+
+회원 가입을 진행하여, 회원 계정이 DB에 있는 경우에만 리뷰를 위와 같이 등록할 수 있다.
+
+또한, 회원가입을 했던 계정과 비밀번호가 일치해야 리뷰 등록이 되도록 구현하였다.
+
+- [Review Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/ReviewController.java)
 
