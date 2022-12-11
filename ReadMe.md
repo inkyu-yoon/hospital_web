@@ -193,8 +193,7 @@ form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
 <br>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212052245550.png" alt="image-20221212052245550" style="zoom:67%;" />
-</p>
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212054416192.png" alt="image-20221212054416192" style="zoom:67%;" /></p>
 
 회원 가입을 진행하여, 회원 계정이 DB에 있는 경우에만 리뷰를 위와 같이 등록할 수 있다.
 
