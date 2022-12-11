@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -17,6 +19,10 @@ public class ReviewService {
     public Review createReview(Review review) {
         Review savedReview = reviewRepository.save(review);
         return savedReview;
+    }
+
+    public List<Review> getReviewsByHospitalId(Long id) {
+        return reviewRepository.findByHospital_Id(id);
     }
 
 }

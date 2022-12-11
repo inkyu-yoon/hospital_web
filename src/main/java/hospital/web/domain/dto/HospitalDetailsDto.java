@@ -1,5 +1,6 @@
 package hospital.web.domain.dto;
 
+import hospital.web.domain.dto.review.ReviewShow;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.domain.entity.Review;
 
@@ -32,9 +33,9 @@ public class HospitalDetailsDto {
 
     private String medicalDepartment;
 
-    private List<Review> reviews = new ArrayList<>();
+    private List<ReviewShow> reviews = new ArrayList<>();
 
-    public HospitalDetailsDto(Hospital hospital) {
+    public HospitalDetailsDto(Hospital hospital,List<ReviewShow> reviews) {
         this.openServiceName = hospital.getOpenServiceName();
         this.phone = hospital.getPhone();
         this.zipCode = hospital.getZipCode();
@@ -57,7 +58,7 @@ public class HospitalDetailsDto {
             this.status = "취소/말소/만료/정지/중지";
         }
 
-        this.reviews = hospital.getReviews();
+        this.reviews = reviews;
     }
 
 }

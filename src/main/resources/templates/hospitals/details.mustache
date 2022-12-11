@@ -48,9 +48,8 @@
 
                             <th scope="row">{{title}}</th>
                             <th scope="row">{{content}}</th>
-                            {{#user}}
-                                <th scope="row">{{userAccount}}</th>
-                            {{/user}}
+
+                            <th scope="row">{{userAccount}}</th>
                             <th scope="row">{{createdDate}}</th>
                         </tr>
                     {{/reviews}}
@@ -65,7 +64,7 @@
     <br>
 
     <form class="container" form action="/reviews" method="post">
-        <input type = "hidden" name ="hospitalId" value="{{id}}"/>
+        <input type="hidden" name="hospitalId" value="{{id}}"/>
 
         <div class="mb-3">
             <label class="form-label">user ID</label>

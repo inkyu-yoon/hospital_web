@@ -4,6 +4,7 @@ import hospital.web.domain.dto.HospitalListDto;
 import hospital.web.domain.dto.HospitalDetailsDto;
 import hospital.web.domain.dto.review.ReviewCreateRequest;
 import hospital.web.domain.dto.review.ReviewCreateResponse;
+import hospital.web.domain.dto.review.ReviewShow;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.domain.entity.Review;
 import hospital.web.service.HospitalService;
@@ -17,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/hospitals")
 @RequiredArgsConstructor
@@ -24,6 +28,7 @@ import org.springframework.web.bind.annotation.*;
 public class HospitalController {
 
     private final HospitalService hospitalService;
+    private final ReviewService reviewService;
 
 
     @GetMapping("")
@@ -41,7 +46,10 @@ public class HospitalController {
     @GetMapping("/{id}/details")
     public String showReviews(@PathVariable("id") Long id, Model model) {
         Hospital hospital = hospitalService.getById(id).get();
-        HospitalDetailsDto hospitalDetailsDto = new HospitalDetailsDto(hospital);
+        List<ReviewShow> reviews = reviewService.getReviewsByHospitalId(id).stream().map(review -> new ReviewShow(review, review.getUser().getUserAccount())).collect(Collectors.toList());
+
+
+        HospitalDetailsDto hospitalDetailsDto = new HospitalDetailsDto(hospital,reviews);
         model.addAttribute("hospital", hospitalDetailsDto);
         return "hospitals/details";
 
