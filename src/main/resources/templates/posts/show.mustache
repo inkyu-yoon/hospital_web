@@ -1,13 +1,24 @@
 {{>layouts/header}}
 <div>
     {{#post}}
-    <body>
+        <body>
 
-    <form class="container">
+        <form class="container">
 
 
             <ul class="list-group">
                 <li class="list-group-item active" aria-current="true">{{id}}. {{title}}</li>
+
+                <li class="list-group-item"> 작성자 : {{userAccount}}</li>
+
+                {{#isUpdated}}
+                    <li class="list-group-item"> 작성일자 : {{updatedDate}}  {{isUpdated}}</li>
+                {{/isUpdated}}
+                {{^isUpdated}}
+                    <li class="list-group-item"> 작성일자 : {{createdDate}}</li>
+                {{/isUpdated}}
+                <hr>
+
                 <li class="list-group-item">  {{content}}</li>
                 <br>
 
@@ -16,7 +27,7 @@
             <hr>
 
 
-    </form>
+        </form>
 
 
         <div align="center">
@@ -34,14 +45,14 @@
         </div>
 
 
-    <div align="center">
-        <form class="container" form action="/posts/list" method="get">
-            <br>
-            <button class="btn btn-success btn-lg" type="submit" style="width: 25%">게시글 전체 조회</button>
-        </form>
-    </div>
-    </body>
-        {{/post}}
+        <div align="center">
+            <form class="container" form action="/posts/list" method="get">
+                <br>
+                <button class="btn btn-success btn-lg" type="submit" style="width: 25%">게시글 전체 조회</button>
+            </form>
+        </div>
+        </body>
+    {{/post}}
 </div>
 {{>layouts/footer}}
 

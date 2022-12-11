@@ -1,6 +1,16 @@
 {{>layouts/header}}
 <form class = "container" form action="/posts" method="post">
     <div class="mb-3">
+        <label class="form-label">user ID</label>
+        <input type="text" name="userAccount" class="form-control" placeholder="아이디">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">password</label>
+        <input type="text" name="password" class="form-control" placeholder="비밀번호">
+    </div>
+
+    <div class="mb-3">
         <label  class="form-label">게시글 제목</label>
         <input type="text" name = "title" class="form-control" placeholder="제목">
     </div>

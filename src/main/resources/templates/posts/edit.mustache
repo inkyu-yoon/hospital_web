@@ -2,6 +2,13 @@
 {{#post}}
     <form class = "container" form action="/posts/{{id}}/update" method = "post">
         <input type = "hidden" name ="id" value="{{id}}"/>
+        {{#user}}
+        <input type = "hidden" name ="userAccount" value="{{userAccount}}"/>
+        {{/user}}
+        <div class="mb-3">
+            <label class="form-label">password</label>
+            <input type="text" name="password" class="form-control" placeholder="비밀번호">
+        </div>
         <div class="mb-3">
             <label  class="form-label">게시글 제목</label>
             <input type="text" name = "title" class="form-control" value = {{title}} placeholder="제목">

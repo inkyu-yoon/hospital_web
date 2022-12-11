@@ -1,23 +1,30 @@
 {{>layouts/header}}
-<form class = "container">
+<form class="container">
     <table class="table">
         <thead>
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Title</th>
             <th scope="col">Content</th>
+            <th scope="col">작성자 ID</th>
+            <th scope="col">작성일자</th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
         {{#posts}}
             <tr>
                 <th>{{id}}</th>
-                {{#title}}
                 <td><a href="/posts/{{id}}">{{title}}</a></td>
-                {{/title}}
-            {{#content}}
                 <td>{{content}}</td>
-                {{/content}}
+
+                <td>{{userAccount}}</td>
+
+                {{#isUpdated}}
+                    <td>{{updatedDate}} {{isUpdated}}</td>
+                {{/isUpdated}}
+                {{^isUpdated}}
+                    <td>{{createdDate}}</td>
+                {{/isUpdated}}
             </tr>
         {{/posts}}
         </tbody>
