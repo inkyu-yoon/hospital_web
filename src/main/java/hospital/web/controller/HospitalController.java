@@ -1,22 +1,21 @@
 package hospital.web.controller;
 
-import hospital.web.domain.dto.HospitalListDto;
 import hospital.web.domain.dto.HospitalDetailsDto;
-import hospital.web.domain.dto.review.ReviewCreateRequest;
-import hospital.web.domain.dto.review.ReviewCreateResponse;
+import hospital.web.domain.dto.HospitalListDto;
 import hospital.web.domain.dto.review.ReviewShow;
 import hospital.web.domain.entity.Hospital;
-import hospital.web.domain.entity.Review;
 import hospital.web.service.HospitalService;
 import hospital.web.service.ReviewService;
-import hospital.web.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -49,12 +48,11 @@ public class HospitalController {
         List<ReviewShow> reviews = reviewService.getReviewsByHospitalId(id).stream().map(review -> new ReviewShow(review, review.getUser().getUserAccount())).collect(Collectors.toList());
 
 
-        HospitalDetailsDto hospitalDetailsDto = new HospitalDetailsDto(hospital,reviews);
+        HospitalDetailsDto hospitalDetailsDto = new HospitalDetailsDto(hospital, reviews);
         model.addAttribute("hospital", hospitalDetailsDto);
         return "hospitals/details";
 
     }
-
 
 
 }

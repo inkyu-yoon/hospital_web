@@ -1,10 +1,13 @@
 package hospital.web.controller;
 
+import hospital.web.domain.dto.comment.CommentShowByFrom;
 import hospital.web.domain.dto.post.PostCreateRequest;
 import hospital.web.domain.dto.post.PostShow;
+import hospital.web.domain.dto.post.PostShowList;
 import hospital.web.domain.dto.post.PostUpdateRequest;
 import hospital.web.domain.entity.Post;
 import hospital.web.domain.entity.User;
+import hospital.web.service.CommentService;
 import hospital.web.service.PostService;
 import hospital.web.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +33,7 @@ public class PostController {
 
     private final PostService postService;
     private final UserService userService;
+    private final CommentService commentService;
     private final BCryptPasswordEncoder encoder;
 
     @GetMapping("/new")
@@ -39,7 +43,7 @@ public class PostController {
 
     @GetMapping("/list")
     public String showList(Model model) {
-        List<PostShow> posts = postService.getAll().stream().map(post -> new PostShow(post,post.getUser().getUserAccount())).collect(Collectors.toList());
+        List<PostShowList> posts = postService.getAll().stream().map(post -> new PostShowList(post,post.getUser().getUserAccount())).collect(Collectors.toList());
         model.addAttribute("posts", posts);
         return "posts/list";
     }
@@ -54,7 +58,8 @@ public class PostController {
         Optional<Post> optPost = postService.getOne(id);
 
         if (!optPost.isEmpty()) {
-            PostShow postShow = new PostShow(optPost.get(),optPost.get().getUser().getUserAccount());
+            PostShow postShow = new PostShow(optPost.get(),optPost.get().getUser().getUserAccount(),
+                    commentService.findAllCommentByPostId(optPost.get().getId()).stream().map(comment -> new CommentShowByFrom(comment)).collect(Collectors.toList()));
             log.info("{}",optPost.get().getUser().getUserAccount());
             model.addAttribute("post", postShow);
             return "posts/show";

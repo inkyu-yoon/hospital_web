@@ -201,3 +201,203 @@ form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
 
 - [Review Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/ReviewController.java)
 
+
+## 4. 게시판 기능 구현
+
+- [PostController 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/PostController.java)
+
+<br>
+
+### 1. 게시글 작성 기능
+
+
+
+```java
+ @PostMapping("")
+    public String add(PostCreateRequest postCreateRequest,Model model) {
+        User user = userService.getUserByUserAccount(postCreateRequest.getUserAccount());
+        if (encoder.matches(postCreateRequest.getPassword(), user.getPassword())) {
+            Post savedPost = postService.createPost(new Post(postCreateRequest, user));
+            return "redirect:/posts/" + savedPost.getId();
+        }
+        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+        return "posts/error";
+    }
+
+```
+
+게시글 작성 기능도 리뷰 작성 기능과 마찬가지로, DB에 회원으로 저장되어 있는 경우만 작성 가능하다.
+
+또한, DB에 저장된 암호화된 `password`와 게시글을 작성할 때 입력하는 `password`가 일치해야 저장된다.
+
+<br>
+
+### 2. 게시글 삭제 기능
+
+```java
+ @GetMapping("/{id}/delete")
+    public String delete(@PathVariable(name = "id") Long id) {
+        postService.deleteOne(id);
+        return "redirect:/posts";
+    }
+```
+
+`JpaRepository` 를 상속받은 `PostRepository` 의 메서드 명명규칙으로 만든 메서드로,
+
+해당 id에 해당하는 게시글을 지운다.
+
+<br>
+
+### 3. 게시글 수정 기능
+
+```java
+  @GetMapping("/{id}/edit")
+    public String edit(@PathVariable(name = "id") Long id, Model model) {
+        Optional<Post> optPost = postService.getOne(id);
+        if (!optPost.isEmpty()) {
+            model.addAttribute("post", optPost.get());
+            return "posts/edit";
+        } else {
+            model.addAttribute("message", String.format("%d가 없습니다.", id));
+            return "posts/error";
+        }
+    }
+
+    @PostMapping("/{id}/update")
+    public String update(PostUpdateRequest postUpdateRequest, Model model) {
+        User user = userService.getUserByUserAccount(postUpdateRequest.getUserAccount());
+        if (encoder.matches(postUpdateRequest.getPassword(), user.getPassword())) {
+            Post updatedPost = new Post(postUpdateRequest, user);
+            postService.createPost(updatedPost);
+            return "redirect:/posts/" + updatedPost.getId();
+        }
+        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+        return "posts/error";
+
+    }
+```
+
+<img>
+
+먼저, 수정 버튼을 클릭하면, `/{id}/edit` 에 GetMapping 된다. 수정하기 전, 원래 내용을 보여준다.
+
+수정 작업 역시, 회원 비밀번호가 일치해야 수정이 되도록 구현하였고, 게시글 작성자 ID는 이미 알고 있는 정보이기 때문에 비밀번호만 입력받도록 하였다.
+
+비밀번호가 일치하지 않을 경우, error 페이지가 나타나도록 하였다.
+
+### 4. 게시글 전체 조회 및 단건 조회
+
+```java
+
+    @GetMapping("/new")
+    public String createPage() {
+        return "posts/new";
+    }
+
+    @GetMapping("/list")
+    public String showList(Model model) {
+        List<PostShow> posts = postService.getAll().stream().map(post -> new PostShow(post,post.getUser().getUserAccount())).collect(Collectors.toList());
+        model.addAttribute("posts", posts);
+        return "posts/list";
+    }
+
+    @GetMapping("")
+    public String show() {
+        return "redirect:/posts/list";
+    }
+
+    @GetMapping("/{id}")
+    public String showOne(@PathVariable(name = "id") Long id, Model model) {
+        Optional<Post> optPost = postService.getOne(id);
+
+        if (!optPost.isEmpty()) {
+            PostShow postShow = new PostShow(optPost.get(),optPost.get().getUser().getUserAccount());
+            log.info("{}",optPost.get().getUser().getUserAccount());
+            model.addAttribute("post", postShow);
+            return "posts/show";
+        } else {
+            model.addAttribute("message", String.format("%d가 없습니다.", id));
+            return "posts/error";
+        }
+    }
+
+```
+
+<img>
+
+게시글 조회의 경우 `PostShow` 라는 DTO를 정의하여 사용하였다.
+
+작성 일자와 수정 일자를 `LocalDateTime` 타입에서 `DateTimeFormatter` 클래스를 사용하여 `yyyy년 MM월 dd일 HH시 mm분` 과 같은 형식으로 나타나게 구현하였다.
+
+<img>
+
+또한, 수정된 게시글의 경우 `(수정됨)` 표시가 나타나도록 구현하였다.
+
+<br>
+
+---
+
+
+## 4. REST API
+
+<br>
+
+### 1. User
+
+[UserRestController 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/UserRestController.java)
+
+- PostMapping "api/v1/join" : 회원 가입 기능 (userAccount, password , userName, email , phone)
+
+- PostMapping "api/v1/login" : 회원 로그인 기능(userAccount, password), 패스워드 일치할 시 JWT 토큰 발급, 그 외는 에러 발생
+
+<br>
+
+### 2. Review
+
+[ReviewRestController 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/ReviewRestController.java)
+
+- PostMapping "api/v1/reviews" : 리뷰 등록 기능 (title, content, userAccount, hospitalId), 단 JWT토큰 헤더에 포함해야 등록 가능
+
+
+
+
+<br>
+
+---
+
+## 5. Spring Security & Jwt 토큰
+
+
+### 1. 회원가입 후, 로그인 시 Jwt 토큰으로 응답
+
+```
+jwt:
+  token:
+    secret: hello
+```
+`application.yml` 에 위 구문을 추가한다.
+
+<br>
+
+```
+JWT_TOKEN_SECRET = 사용자비밀키
+```
+
+실제로 주입되는 값은 환경 변수로,  `@Value("${jwt.token.secret}")` 어노테이션을 사용하여 토큰 생성에 쓰일 key 값 주입한다.
+
+<br>
+
+[JwtToken 생성 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/Security/JwtTokenUtil.java)
+
+토큰 만료시간은 1시간으로 설정하였다.
+
+이렇게 생성된 토큰을 회원 login 시 body에 담아서 응답한다.
+
+<br>
+
+#### 2. join & login 외 Post 요청 시, JwtToken 으로 권한 확인
+
+
+[Jwt Token 확인 및 권한 부여 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/Security/JwtTokenFilter.java)
+
+[httpSecurity Token 확인 필터 추가](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/configuration/SecurityConfig.java)

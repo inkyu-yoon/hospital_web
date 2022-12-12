@@ -2,7 +2,6 @@ package hospital.web.domain.dto.post;
 
 import hospital.web.domain.dto.comment.CommentShowByFrom;
 import hospital.web.domain.entity.Post;
-import hospital.web.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,7 +12,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
-public class PostShow {
+public class PostShowList {
     private Long id;
     private String title;
     private String content;
@@ -21,9 +20,8 @@ public class PostShow {
     private String createdDate;
     private String updatedDate;
     private String isUpdated;
-    private List<CommentShowByFrom> comments = new ArrayList<>();
 
-    public PostShow(Post post, String userAccount,List<CommentShowByFrom> comments) {
+    public PostShowList(Post post, String userAccount) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.content = post.getContent();
@@ -39,6 +37,5 @@ public class PostShow {
         if (post.getCreatedDate() != post.getUpdatedDate()) {
             this.isUpdated = "(수정됨)";
         }
-        this.comments = comments;
     }
 }
