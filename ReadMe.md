@@ -4,7 +4,7 @@
 ## ERD
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/erd.png" alt="erd" style="zoom:130%;" />
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212231345033.png" alt="image-20221212231345033"  />
 </p>
 
 <br>
