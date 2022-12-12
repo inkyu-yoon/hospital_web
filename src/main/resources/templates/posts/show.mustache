@@ -33,9 +33,9 @@
                 <thead>
                 <tr>
 
-                    <th scope="col">댓글 내용</th>
-                    <th scope="col">아이디</th>
                     <th scope="col">작성 일자</th>
+                    <th scope="col">아이디</th>
+                    <th scope="col">댓글 내용</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,12 +43,21 @@
                     <tr>
 
 
+                        <th scope="row">{{createdDate}}</th>
+                        <th scope="row">{{userAccount}}</th>
                         <th scope="row">{{content}}</th>
 
-                        <th scope="row">{{userAccount}}</th>
-                        <th scope="row">{{createdDate}}</th>
+                            <form class="container" form action="/comments/{{id}}/delete" method="get">
+                                <div class="d-grid gap-2 col-6 mx-auto">
+                                 <input type="hidden" name="userAccount" value="{{userAccount}}"/>
+                                    <th scope="row">    <input type="text" name="password" class="form-control" placeholder="비밀번호"></th>
+                                    <th scope="row"> <button class="btn btn-warning" type="submit">댓글 삭제</button></th>
+                                </div>
+                            </form>
+
                     </tr>
                 {{/comments}}
+
                 </tbody>
             </table>
         </form>

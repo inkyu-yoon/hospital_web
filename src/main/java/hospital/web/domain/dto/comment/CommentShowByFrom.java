@@ -11,11 +11,13 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 public class CommentShowByFrom {
 
+    private Long id;
     private String userAccount;
     private String content;
     private String createdDate;
 
     public CommentShowByFrom(Comment comment) {
+        this.id = comment.getId();
         this.userAccount = comment.getUser().getUserAccount();
         this.content = comment.getContent();
 

@@ -24,5 +24,13 @@ public class ReviewService {
     public List<Review> getReviewsByHospitalId(Long id) {
         return reviewRepository.findByHospital_Id(id);
     }
+    @Transactional
+    public void deleteOne(Long id) {
+        reviewRepository.deleteById(id);
+    }
+
+    public Review findOne(Long id) {
+        return reviewRepository.findById(id).get();
+    }
 
 }

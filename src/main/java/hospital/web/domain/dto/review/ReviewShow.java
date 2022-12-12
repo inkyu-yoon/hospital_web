@@ -11,13 +11,15 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @AllArgsConstructor
 public class ReviewShow {
+
+    private Long id;
     private String title;
     private String content;
     private String userAccount;
     private String createdDate;
 
     public ReviewShow(Review review, String userAccount) {
-
+        this.id = review.getId();
         this.title = review.getTitle();
         this.content = review.getContent();
         this.userAccount = userAccount;

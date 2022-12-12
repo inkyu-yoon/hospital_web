@@ -3,6 +3,7 @@ package hospital.web.controller;
 import hospital.web.domain.dto.HospitalDetailsDto;
 import hospital.web.domain.dto.review.ReviewCreateByForm;
 import hospital.web.domain.dto.review.ReviewCreateRequest;
+import hospital.web.domain.entity.Comment;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.domain.entity.Review;
 import hospital.web.domain.entity.User;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -48,5 +51,17 @@ public class ReviewController {
         }
         return "redirect:/hospitals/"+reviewCreateByForm.getHospitalId()+"/details";
 
+    }
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable(name = "id") Long id, String userAccount, String password) {
+        User user = userService.getUserByUserAccount(userAccount);
+
+        if (!encoder.matches(password, user.getPassword())) {
+            return "posts/error";
+        }
+        Review review = reviewService.findOne(id);
+        Long hospitalId = review.getHospital().getId();
+        reviewService.deleteOne(id);
+        return "redirect:/hospitals/"+hospitalId+"/details";
     }
 }
