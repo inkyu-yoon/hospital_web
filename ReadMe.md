@@ -146,7 +146,7 @@ SQL 쿼리문의 결과와 같이, 총 121003개의 데이터가 잘 입력되�
 
 병원 리뷰 작성 & 게시판 게시글 작성 시 ID와 비밀번호를 함께 입력받도록 하여, `matches()` 메서드로 DB에 암호화 되어 있는 비밀번호와 같은지 확인한 뒤
 
-일치하는 경우에만 입력할 수 있고록 구현하였다.
+일치하는 경우에만 입력할 수 있도 록 구현하였다.
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213223728906.png" alt="image-20221213223728906" style="zoom:80%;" />
@@ -249,7 +249,7 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 또한, 회원가입을 했던 계정과 비밀번호가 일치해야 리뷰 등록이 되도록 구현하였다.
 
-리뷰 삭제의 경우도, 비밀번호를 입력해야 삭제할 수 있으며, 게시글을 작성한 아이디의 비밀번호와 일치해야 삭제가 되도록 구현하였다.
+리뷰 삭제의 경우도, 비밀번호를 입력해야 삭제할 수 있으며, 리뷰를 작성한 아이디의 비밀번호와 일치해야 삭제가 되도록 구현하였다.
 
 
 
@@ -266,7 +266,7 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 <img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213234237695.png" alt="image-20221213234237695" style="zoom:80%;" />
 </p>
 
-게시글이 전혀 작성되어 있지 않은 상태이다.
+현재, 게시글이 전혀 작성되어 있지 않은 상태이다.
 
 <br>
 
