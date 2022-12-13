@@ -23,6 +23,7 @@ public class Post extends BaseEntity{
     private Long id;
 
     private String title;
+    @Column(length = 1000)
     private String content;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

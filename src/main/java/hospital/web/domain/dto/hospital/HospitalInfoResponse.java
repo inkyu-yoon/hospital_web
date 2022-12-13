@@ -1,41 +1,26 @@
-package hospital.web.domain.dto;
+package hospital.web.domain.dto.hospital;
 
-import hospital.web.domain.dto.review.ReviewShow;
 import hospital.web.domain.entity.Hospital;
-import hospital.web.domain.entity.Review;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class HospitalDetailsDto {
-
+@Getter
+@AllArgsConstructor
+public class HospitalInfoResponse {
     private String openServiceName;
-
     private String status;
-
     private String phone;
-
     private String zipCode;
-
     private String fullAddress;
-
     private String roadNameAddress;
-
     private String hospitalName;
-
     private String businessTypeName;
-
     private Integer healthcareProviderCount;
-
     private Integer patientRoomCount;
-
     private Integer totalNumberOfBeds;
-
     private String medicalDepartment;
 
-    private List<ReviewShow> reviews = new ArrayList<>();
-
-    public HospitalDetailsDto(Hospital hospital,List<ReviewShow> reviews) {
+    public HospitalInfoResponse(Hospital hospital) {
         this.openServiceName = hospital.getOpenServiceName();
         this.phone = hospital.getPhone();
         this.zipCode = hospital.getZipCode();
@@ -58,7 +43,5 @@ public class HospitalDetailsDto {
             this.status = "취소/말소/만료/정지/중지";
         }
 
-        this.reviews = reviews;
     }
-
 }

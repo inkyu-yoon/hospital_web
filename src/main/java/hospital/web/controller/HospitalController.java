@@ -1,7 +1,7 @@
 package hospital.web.controller;
 
-import hospital.web.domain.dto.HospitalDetailsDto;
-import hospital.web.domain.dto.HospitalListDto;
+import hospital.web.domain.dto.hospital.HospitalDetailsDto;
+import hospital.web.domain.dto.hospital.HospitalListDto;
 import hospital.web.domain.dto.review.ReviewShow;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.service.HospitalService;
@@ -55,7 +55,7 @@ public class HospitalController {
 
     @GetMapping("/{id}/details")
     public String showReviews(@PathVariable("id") Long id, Model model) {
-        Hospital hospital = hospitalService.getById(id).get();
+        Hospital hospital = hospitalService.getById(id);
         List<ReviewShow> reviews = reviewService.getReviewsByHospitalId(id).stream().map(review -> new ReviewShow(review, review.getUser().getUserAccount())).collect(Collectors.toList());
 
 

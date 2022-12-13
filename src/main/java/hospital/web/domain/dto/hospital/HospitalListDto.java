@@ -1,4 +1,4 @@
-package hospital.web.domain.dto;
+package hospital.web.domain.dto.hospital;
 
 
 import hospital.web.domain.entity.Hospital;

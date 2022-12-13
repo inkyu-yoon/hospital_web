@@ -1,9 +1,6 @@
 package hospital.web.controller;
 
-import hospital.web.domain.dto.HospitalDetailsDto;
 import hospital.web.domain.dto.review.ReviewCreateByForm;
-import hospital.web.domain.dto.review.ReviewCreateRequest;
-import hospital.web.domain.entity.Comment;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.domain.entity.Review;
 import hospital.web.domain.entity.User;
@@ -33,7 +30,7 @@ public class ReviewController {
 
     @PostMapping("")
     public String createReview(ReviewCreateByForm reviewCreateByForm, Model model) {
-        Hospital hospital = hospitalService.getById(reviewCreateByForm.getHospitalId()).get();
+        Hospital hospital = hospitalService.getById(reviewCreateByForm.getHospitalId());
         log.info("{}{}",reviewCreateByForm.getUserAccount(),reviewCreateByForm.getPassword());
         User user = userService.getUserByUserAccount(reviewCreateByForm.getUserAccount());
         if (user == null) {

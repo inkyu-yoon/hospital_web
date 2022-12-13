@@ -27,7 +27,7 @@ public class ReviewRestController {
 
     @PostMapping
     public Response<ReviewCreateResponse> write(@RequestBody ReviewCreateRequest reviewCreateRequest, Authentication authentication) {
-        Review review = new Review(reviewCreateRequest, hospitalService.getById(reviewCreateRequest.getHospitalId()).get(), userService.getUserByUserAccount(reviewCreateRequest.getUserAccount()));
+        Review review = new Review(reviewCreateRequest, hospitalService.getById(reviewCreateRequest.getHospitalId()), userService.getUserByUserAccount(reviewCreateRequest.getUserAccount()));
         if (authentication.isAuthenticated()) {
             reviewService.createReview(review);
         }

@@ -37,7 +37,7 @@ public class UserService {
 
     public String login(String userId, String password) {
         User user = userRepository.findByUserAccount(userId)
-                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, String.format("%s는 가입된 적이 없습니다.", userId)));
+                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.NOT_FOUNDED, String.format("%s는 가입된 적이 없습니다.", userId)));
 
         if(!encoder.matches(password,user.getPassword())){
             throw new HospitalReviewAppException(ErrorCode.INVALID_PASSWORD, String.format("userName 또는 password가 잘 못 되었습니다."));
@@ -48,7 +48,7 @@ public class UserService {
 
     public User getUserByUserAccount(String userAccount) {
         return userRepository.findByUserAccount(userAccount)
-                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, ""));
+                .orElseThrow(() -> new HospitalReviewAppException(ErrorCode.NOT_FOUNDED, ""));
     }
 
 
