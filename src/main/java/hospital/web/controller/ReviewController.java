@@ -50,10 +50,11 @@ public class ReviewController {
 
     }
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable(name = "id") Long id, String userAccount, String password) {
+    public String delete(@PathVariable(name = "id") Long id, String userAccount, String password,Model model) {
         User user = userService.getUserByUserAccount(userAccount);
         log.info("userAccount {} password {}",userAccount,password);
         if (!encoder.matches(password, user.getPassword())) {
+            model.addAttribute("message", "비밀번호가 일치하지 않습니다");
             return "posts/error";
         }
         Review review = reviewService.findOne(id);
