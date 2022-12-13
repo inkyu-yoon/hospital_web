@@ -95,9 +95,14 @@ public class PostController {
     }
 
     @GetMapping("/{id}/delete")
-    public String delete(@PathVariable(name = "id") Long id) {
-        postService.deleteOne(id);
-        return "redirect:/posts";
+    public String delete(@PathVariable(name = "id") Long id,String userAccount, String password,Model model) {
+        if (encoder.matches(password, userService.getUserByUserAccount(userAccount).getPassword())) {
+            postService.deleteOne(id);
+            return "redirect:/posts";
+        } else {
+            model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
+            return "posts/error";
+        }
     }
 
     @PostMapping("")

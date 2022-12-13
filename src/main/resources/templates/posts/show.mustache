@@ -100,8 +100,12 @@
                     <button type="submit" class="btn btn-primary btn-lg">게시글 수정</button>
                 </form>
             </div>
+            <br>
+            <br>
             <div style="display: inline-block">
                 <form class="container" form action="/posts/{{id}}/delete" method="get">
+                        <input type="hidden" name="userAccount" value="{{userAccount}}"/>
+                    <input type="text" name="password" class="form-control" placeholder="비밀번호">
                     <button type="submit" class="btn btn-danger btn-lg">게시글 삭제</button>
                 </form>
             </div>
