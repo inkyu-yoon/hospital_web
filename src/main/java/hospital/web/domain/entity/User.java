@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -30,7 +32,11 @@ public class User {
     private String phone;
     private String email;
 
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "user_Role")
