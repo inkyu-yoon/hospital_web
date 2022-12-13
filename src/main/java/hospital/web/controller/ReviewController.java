@@ -52,7 +52,7 @@ public class ReviewController {
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable(name = "id") Long id, String userAccount, String password) {
         User user = userService.getUserByUserAccount(userAccount);
-
+        log.info("userAccount {} password {}",userAccount,password);
         if (!encoder.matches(password, user.getPassword())) {
             return "posts/error";
         }

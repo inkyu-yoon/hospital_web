@@ -93,7 +93,7 @@ class UserRestControllerTest {
     void login_fail() throws Exception {
         UserLoginRequest userLoginRequest = new UserLoginRequest("yooninkyu", "12345");
 
-        when(userService.login(any(), any())).thenThrow(new HospitalReviewAppException(ErrorCode.USER_NOT_FOUNDED, ""));
+        when(userService.login(any(), any())).thenThrow(new HospitalReviewAppException(ErrorCode.NOT_FOUNDED, ""));
 
         Gson gson = new Gson();
         String content = gson.toJson(userLoginRequest);

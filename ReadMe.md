@@ -61,7 +61,7 @@
 server:
   servlet:
     encoding:
-      force-response: true
+      force-response: true #웹사이트 한글 깨짐 오류 해결
       
 spring:
   datasource:
@@ -144,12 +144,30 @@ SQL 쿼리문의 결과와 같이, 총 121003개의 데이터가 잘 입력되�
 일치하는 경우에만 입력할 수 있고록 구현하였다.
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212051256248.png" alt="image-20221212051256248" style="zoom: 67%;" />
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213223728906.png" alt="image-20221213223728906" style="zoom:80%;" />
 </p>
 
 회원 가입 시, 계정명, 비밀번호, 이름, 이메일, 전화번호를 입력받도록 하였고, 회원 계정명은 `unique` 속성을 부여하여, 중복될 수 없다.
 
 form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
+
+<br>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213224812442.png" alt="image-20221213224812442" style="zoom: 80%;" />
+</p>
+
+위와 같은 데이터로 회원가입을 진행해보겠다.
+
+<br>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213224903966.png" alt="image-20221213224903966" style="zoom:80%;" />
+</p>
+
+암호화된 비밀번호로 DB에 저장되는 것을 확인할 수 있다.
+
+- [User Entity 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/User.java)
 
 - [User Controller 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/UserController.java)
 
@@ -159,23 +177,42 @@ form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
 
 ### 메인 화면 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212045103811.png" alt="image-20221212045103811" style="zoom: 60%;" />
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213223951408.png" alt="image-20221213223951408" style="zoom:80%;" />
 </p>
+
+JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙과 Pageable 클래스를 사용해서 약 12만건 데이터 페이징 구현하였다.
 
 화면 구성은 [Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction/) 을 사용하였고, template 라이브러리는  mustache를 사용하였다.
 
-#### 1. 지역명 검색 기능
 - [Hospital Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/HospitalController.java)
 - [Hospital repository 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/repository/HospitalRepository.java)
-> JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙과 Pageable 클래스를 사용해서 약 12만건 데이터 페이징 구현
+
+#### 1. 지역명 & 병원명 검색 기능
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213224105433.png" alt="image-20221213224105433" style="zoom: 80%;" />
+</p>
 
 <br>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212050448219.png" alt="image-20221212050448219" style="zoom:67%;" />
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213224310341.png" alt="image-20221213224310341" style="zoom:80%;" />
 </p>
 
-`울산` 검색 시 위와 같이 데이터가 필터링 되어 표시된다.
+주소 검색 선택후, 키워드 검색 시 주소 이름을 기준으로 페이징이 된다. 주소 검색 `울산`으로 검색한 결과는 위와 같다.
+
+<br>
+
+
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213224445093.png" alt="image-20221213224445093" style="zoom:80%;" />
+</p>
+
+병원명 검색 선택 후, `효치과` 키워드를 입력 한 결과는 위와 같다.
+
+<br>
+
 
 #### 2. 병원 상세 정보 및 리뷰 작성 기능
 
@@ -193,12 +230,16 @@ form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
 <br>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212054416192.png" alt="image-20221212054416192" style="zoom:67%;" /></p>
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213225203493.png" alt="image-20221213225203493" style="zoom:80%;" />
+</p>
 
 회원 가입을 진행하여, 회원 계정이 DB에 있는 경우에만 리뷰를 위와 같이 등록할 수 있다.
 
 또한, 회원가입을 했던 계정과 비밀번호가 일치해야 리뷰 등록이 되도록 구현하였다.
 
+리뷰 삭제의 경우도, 비밀번호를 입력해야 삭제할 수 있으며, 게시글을 작성한 아이디의 비밀번호와 일치해야 삭제가 되도록 구현하였다.
+
+- [Review Entity 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/Review.java)
 - [Review Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/ReviewController.java)
 
 
