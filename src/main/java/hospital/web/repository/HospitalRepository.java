@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface HospitalRepository extends JpaRepository<Hospital, Long> {
 
     Page<Hospital> findByRoadNameAddressContaining(String address, Pageable pageable);
+    Page<Hospital> findByHospitalNameContaining(String name, Pageable pageable);
 }

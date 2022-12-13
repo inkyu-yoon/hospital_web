@@ -1,8 +1,8 @@
 {{>layouts/header}}
 
 <form class="container">
-    <table class="table table-hover">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
         <tr>
             <th scope="col">Id</th>
             <th scope="col">병원 이름</th>
@@ -28,14 +28,20 @@
         </tbody>
     </table>
     <ul class="pagination justify-content-center">
-        {{#keyword}}
-            <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{previous}}">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="?keyword={{keyword}}&page={{next}}">Next</a></li>
-        {{/keyword}}
+        {{#condition}}
+
+            {{#keyword}}
+                <li class="page-item"><a class="page-link" href="?condition={{condition}}&keyword={{keyword}}&page={{previous}}">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="?condition={{condition}}&keyword={{keyword}}&page={{next}}">Next</a></li>
+            {{/keyword}}
+        {{/condition}}
+{{^condition}}
         {{^keyword}}
             <li class="page-item"><a class="page-link" href="?page={{previous}}">Previous</a></li>
             <li class="page-item"><a class="page-link" href="?page={{next}}">Next</a></li>
         {{/keyword}}
+{{/condition}}
     </ul>
 </form>
 {{>layouts/footer}}

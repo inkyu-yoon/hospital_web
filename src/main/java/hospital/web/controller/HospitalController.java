@@ -31,11 +31,22 @@ public class HospitalController {
 
 
     @GetMapping("")
-    public String searchList(@RequestParam(required = false) String keyword, Model model, Pageable pageable) {
-        Page<Hospital> hospitals = hospitalService.getHospitalListPage(keyword, pageable);
+    public String searchList(@RequestParam(required = false) String keyword, @RequestParam(required = false) String condition, Model model, Pageable pageable) {
+        log.info("검색 조건 : {}", condition);
+        Page<Hospital> hospitals = hospitalService.getHospitalListAll(keyword, pageable);
+        if (condition != null) {
+            if (condition.equals("hospitalName")) {
+                hospitals = hospitalService.getHospitalListPageByName(keyword, pageable);
+            } else if (condition.equals("roadName")) {
+                hospitals = hospitalService.getHospitalListPageByRoadName(keyword, pageable);
+            }
+        }
         Page<HospitalListDto> hospitalListDtos = hospitals.map(hospital -> new HospitalListDto(hospital));
         log.info("키워드:{}", keyword);
+
+
         model.addAttribute("keyword", keyword);
+        model.addAttribute("condition", condition);
         model.addAttribute("hospitals", hospitalListDtos);
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());

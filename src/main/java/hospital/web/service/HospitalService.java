@@ -17,12 +17,25 @@ public class HospitalService {
 
     private final HospitalRepository hospitalRepository;
 
-    public Page<Hospital> getHospitalListPage(String keyword , Pageable pageable) {
+    public Page<Hospital> getHospitalListPageByRoadName(String keyword , Pageable pageable) {
         Page<Hospital> hospitals;
         if (keyword == null) {
             hospitals = hospitalRepository.findAll(pageable);
         } else {
             hospitals = hospitalRepository.findByRoadNameAddressContaining(keyword, pageable);
+        }
+        return hospitals;
+    }
+
+    public Page<Hospital> getHospitalListAll(String keyword, Pageable pageable) {
+        return hospitalRepository.findAll(pageable);
+    }
+    public Page<Hospital> getHospitalListPageByName(String keyword , Pageable pageable) {
+        Page<Hospital> hospitals;
+        if (keyword == null) {
+            hospitals = hospitalRepository.findAll(pageable);
+        } else {
+            hospitals = hospitalRepository.findByHospitalNameContaining(keyword, pageable);
         }
         return hospitals;
     }
