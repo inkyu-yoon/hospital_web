@@ -4,9 +4,9 @@ server:
       force-response: true #한글 깨짐 오류 해결
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/project-db
+    url: jdbc:mysql://ec2-35-73-226-27.ap-northeast-1.compute.amazonaws.com/inkyu-db?&rewriteBatchedStatements=true&profileSQL=true&logger=Slf4JLogger&maxQuerySizeToLog=999999
     username: root
-    password: 12341234
+    password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
