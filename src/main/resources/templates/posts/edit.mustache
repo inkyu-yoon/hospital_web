@@ -11,12 +11,13 @@
         </div>
         <div class="mb-3">
             <label  class="form-label">게시글 제목</label>
-            <input type="text" name = "title" class="form-control" value = {{title}} placeholder="제목">
+
+            <textarea class="form-control"  rows="1" name= "title"  >{{title}}</textarea>
         </div>
 
         <div class="mb-3">
             <label  class="form-label">게시글 내용</label>
-            <textarea class="form-control"  rows="10" name= "content" placeholder="내용" >{{content}}</textarea>
+            <textarea class="form-control"  rows="10" name= "content" >{{content}}</textarea>
 
         </div>
 
@@ -25,6 +26,5 @@
         </div>
 
     </form>
-    <a href="/posts"> 목록 </a>
 {{/post}}
 {{>layouts/footer}}

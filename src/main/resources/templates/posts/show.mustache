@@ -39,30 +39,34 @@
                 </tr>
                 </thead>
                 <tbody>
+
         </form>
-
         {{#comments}}
-                    <tr>
+            <tr>
 
 
-                        <th scope="row">{{createdDate}}</th>
-                        <th scope="row">{{userAccount}}</th>
-                        <th scope="row">{{content}}</th>
+                <th scope="row">{{createdDate}}</th>
+                <th scope="row">{{userAccount}}</th>
+                <th scope="row">{{content}}</th>
 
-                            <form class="container" form action="/comments/{{id}}/delete" method="get">
-                                <div class="d-grid gap-2 col-6 mx-auto">
-                                 <input type="hidden" name="userAccount" value="{{userAccount}}"/>
-                                    <th scope="row">    <input type="text" name="password" class="form-control" placeholder="비밀번호"></th>
-                                    <th scope="row"> <button class="btn btn-warning" type="submit">댓글 삭제</button></th>
-                                </div>
-                            </form>
+                <form class="container" form action="/comments/{{id}}/delete" method="get">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <input type="hidden" name="userAccount" value="{{userAccount}}"/>
+                        <th scope="row"><input type="text" name="password" class="form-control" placeholder="비밀번호"></th>
+                        <th scope="row">
+                            <button class="btn btn-warning" type="submit">댓글 삭제</button>
+                        </th>
+                    </div>
+                </form>
 
-                    </tr>
-                {{/comments}}
+            </tr>
+        {{/comments}}
 
-                </tbody>
-            </table>
+        </tbody>
+        </table>
 
+        <hr class="border border-dark border-3 opacity-75">
+        <h2>댓글 작성</h2>
         <hr>
 
         <form class="container" form action="/comments" method="post">
@@ -104,7 +108,7 @@
             <br>
             <div style="display: inline-block">
                 <form class="container" form action="/posts/{{id}}/delete" method="get">
-                        <input type="hidden" name="userAccount" value="{{userAccount}}"/>
+                    <input type="hidden" name="userAccount" value="{{userAccount}}"/>
                     <input type="text" name="password" class="form-control" placeholder="비밀번호">
                     <button type="submit" class="btn btn-danger btn-lg">게시글 삭제</button>
                 </form>

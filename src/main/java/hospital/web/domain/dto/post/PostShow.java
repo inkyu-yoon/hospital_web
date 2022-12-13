@@ -39,5 +39,6 @@ public class PostShow {
         if (!created.equals(updated)) {
             this.isUpdated = "(수정됨)";
         }
+        this.comments = comments;
     }
 }

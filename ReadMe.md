@@ -284,53 +284,38 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 <br>
 
 <p align="center">
-<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213234523418.png" alt="image-20221213234523418" style="zoom: 80%;" />
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221214000419479.png" alt="image-20221214000419479" style="zoom:80%;" />
 </p>
 
-회원가입 된 계정으로 테스트 게시글을 작성하였다. 게시글 제목을 클릭하면, 
+
+회원가입 된 계정으로 테스트 게시글을 작성하였다. 게시글 제목을 클릭하면, 상세 페이지가 나오며, 댓글을 작성할 수 있다.
 
 <br>
 
-### 2. 게시글 삭제 기능
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221214000734884.png" alt="image-20221214000734884" style="zoom:80%;" />
+</p>
 
-
-
-`JpaRepository` 를 상속받은 `PostRepository` 의 메서드 명명규칙으로 만든 메서드로,
-
-해당 id에 해당하는 게시글을 지운다.
+댓글 작성 기능 역시, DB에 저장된 계정명과 비밀번호가 일치해야 작성 가능하도록 하였다.
 
 <br>
 
-### 3. 게시글 수정 기능
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221214001543566.png" alt="image-20221214001543566" style="zoom:80%;" />
+</p>
 
-```java
-  @GetMapping("/{id}/edit")
-    public String edit(@PathVariable(name = "id") Long id, Model model) {
-        Optional<Post> optPost = postService.getOne(id);
-        if (!optPost.isEmpty()) {
-            model.addAttribute("post", optPost.get());
-            return "posts/edit";
-        } else {
-            model.addAttribute("message", String.format("%d가 없습니다.", id));
-            return "posts/error";
-        }
-    }
+위와 같이 댓글을 등록할 수 있고, 댓글을 작성한 아이디의 비밀번호를 입력하여 댓글을 삭제할 수 있다.
 
-    @PostMapping("/{id}/update")
-    public String update(PostUpdateRequest postUpdateRequest, Model model) {
-        User user = userService.getUserByUserAccount(postUpdateRequest.getUserAccount());
-        if (encoder.matches(postUpdateRequest.getPassword(), user.getPassword())) {
-            Post updatedPost = new Post(postUpdateRequest, user);
-            postService.createPost(updatedPost);
-            return "redirect:/posts/" + updatedPost.getId();
-        }
-        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-        return "posts/error";
 
-    }
-```
 
-<img>
+<br>
+
+### 2. 게시글 수정 기능
+
+<br>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221214002422394.png" alt="image-20221214002422394" style="zoom: 80%;" /></p>
 
 먼저, 수정 버튼을 클릭하면, `/{id}/edit` 에 GetMapping 된다. 수정하기 전, 원래 내용을 보여준다.
 
@@ -338,57 +323,37 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 비밀번호가 일치하지 않을 경우, error 페이지가 나타나도록 하였다.
 
-### 4. 게시글 전체 조회 및 단건 조회
 
-```java
+<br>
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221214002257343.png" alt="image-20221214002257343" style="zoom:80%;" />
+</p>
 
-    @GetMapping("/new")
-    public String createPage() {
-        return "posts/new";
-    }
+위와 같이 변경하고 싶은 제목과 내용을 적은 뒤, 수정 버튼을 클릭하면 변경사항이 적용된다.
 
-    @GetMapping("/list")
-    public String showList(Model model) {
-        List<PostShow> posts = postService.getAll().stream().map(post -> new PostShow(post,post.getUser().getUserAccount())).collect(Collectors.toList());
-        model.addAttribute("posts", posts);
-        return "posts/list";
-    }
+<br>
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221214002522070.png" alt="image-20221214002522070" style="zoom:80%;" />
+</p>
 
-    @GetMapping("")
-    public String show() {
-        return "redirect:/posts/list";
-    }
-
-    @GetMapping("/{id}")
-    public String showOne(@PathVariable(name = "id") Long id, Model model) {
-        Optional<Post> optPost = postService.getOne(id);
-
-        if (!optPost.isEmpty()) {
-            PostShow postShow = new PostShow(optPost.get(),optPost.get().getUser().getUserAccount());
-            log.info("{}",optPost.get().getUser().getUserAccount());
-            model.addAttribute("post", postShow);
-            return "posts/show";
-        } else {
-            model.addAttribute("message", String.format("%d가 없습니다.", id));
-            return "posts/error";
-        }
-    }
-
-```
-
-<img>
-
-게시글 조회의 경우 `PostShow` 라는 DTO를 정의하여 사용하였다.
-
-작성 일자와 수정 일자를 `LocalDateTime` 타입에서 `DateTimeFormatter` 클래스를 사용하여 `yyyy년 MM월 dd일 HH시 mm분` 과 같은 형식으로 나타나게 구현하였다.
-
-<img>
-
-또한, 수정된 게시글의 경우 `(수정됨)` 표시가 나타나도록 구현하였다.
+수정된 게시글의 경우 작성일자 옆에 `(수정됨)` 이 나타나도록 구현하엿다.
 
 <br>
 
----
+
+### 3. 게시글 삭제 기능
+
+
+
+`JpaRepository` 를 상속받은 `PostRepository` 의 메서드 명명규칙으로 만든 메서드로,
+
+해당 id에 해당하는 비밀번호를 입력한 뒤 삭제 버튼을 클릭하면 게시글을 지운다.
+
+또한, 게시글에 저장되어 있는 댓글들도 함께 삭제된다.
+
+<br>
+
+
 
 
 ## 4. REST API
@@ -399,9 +364,12 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 [UserRestController 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/UserRestController.java)
 
-- PostMapping "api/v1/join" : 회원 가입 기능 (userAccount, password , userName, email , phone)
+- PostMapping "api/v1/users/join" : 회원 가입 기능 (userAccount, password , userName, email , phone)
 
-- PostMapping "api/v1/login" : 회원 로그인 기능(userAccount, password), 패스워드 일치할 시 JWT 토큰 발급, 그 외는 에러 발생
+- PostMapping "api/v1/users/login" : 회원 로그인 기능(userAccount, password), 패스워드 일치할 시 JWT 토큰 발급, 그 외는 에러 발생
+
+- GetMapping "api/v1/users/{userAccount}/reviews" : 회원이 작성한 병원 리뷰를 모두 확인할 수 있다.
+
 
 <br>
 
@@ -411,7 +379,13 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 - PostMapping "api/v1/reviews" : 리뷰 등록 기능 (title, content, userAccount, hospitalId), 단 JWT토큰 헤더에 포함해야 등록 가능
 
+### 3. Hospital
 
+[HospitalRestController 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/HospitalRestController.java)
+
+- GetMapping "api/v1/hospitals/info/{hospitalName}" 입력한 병원 상세 정보 모두 출력 (동명인 병원 모두 검색됨)
+
+- GetMapping "api/v1/hospitals/info/{hospitalName}/reviews" 입력한 병원의 리뷰 모두 출력 (동명인 병원 모두 검색됨)
 
 
 <br>
@@ -420,6 +394,7 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 ## 5. Spring Security & Jwt 토큰
 
+<br>
 
 ### 1. 회원가입 후, 로그인 시 Jwt 토큰으로 응답
 
