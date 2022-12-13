@@ -34,10 +34,8 @@ public class PostShowList {
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
         String format2 = updated.format(dtf2);
         this.updatedDate = format2;
-        if (post.getCreatedDate() != post.getUpdatedDate()) {
+        if (!created.equals(updated)) {
             this.isUpdated = "(수정됨)";
-        } else {
-            this.isUpdated = " ";
         }
     }
 }
