@@ -36,6 +36,8 @@ public class PostShowList {
         this.updatedDate = format2;
         if (post.getCreatedDate() != post.getUpdatedDate()) {
             this.isUpdated = "(수정됨)";
+        } else {
+            this.isUpdated = " ";
         }
     }
 }

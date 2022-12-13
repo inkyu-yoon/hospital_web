@@ -97,7 +97,7 @@ SPRING_DATASOURCE_URL=jdbc:mysql://데이터베이스연결된ec2주소 :3306/db
 
 3. Hospital 클래스 생성
 
-[Hospital 엔티티 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/Hospital.java)
+[Hospital Entity 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/Hospital.java)
 
 
 
@@ -137,6 +137,11 @@ SQL 쿼리문의 결과와 같이, 총 121003개의 데이터가 잘 입력되�
 
 ## 2. 회원 가입 기능과 암호화
 
+- [User Entity 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/User.java)
+- [User Controller 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/UserController.java)
+
+<br>
+
 `BcryptPasswordEncoder` 클래스의 `encode()` 메서드를 사용하여 암호화 한 뒤 DB에 저장하도록 구현하였고,
 
 병원 리뷰 작성 & 게시판 게시글 작성 시 ID와 비밀번호를 함께 입력받도록 하여, `matches()` 메서드로 DB에 암호화 되어 있는 비밀번호와 같은지 확인한 뒤
@@ -167,9 +172,6 @@ form 에 입력 시, post 요청으로 DB에 입력되도록 하였다.
 
 암호화된 비밀번호로 DB에 저장되는 것을 확인할 수 있다.
 
-- [User Entity 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/User.java)
-
-- [User Controller 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/UserController.java)
 
 ---
 
@@ -187,11 +189,16 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 - [Hospital Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/HospitalController.java)
 - [Hospital repository 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/repository/HospitalRepository.java)
 
+
+<br>
+
 #### 1. 지역명 & 병원명 검색 기능
 
 <p align="center">
 <img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213224105433.png" alt="image-20221213224105433" style="zoom: 80%;" />
 </p>
+
+위와 같이 원하는 검색 조건을 선택할 수 있도록 구현하였다.
 
 <br>
 
@@ -216,6 +223,11 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 #### 2. 병원 상세 정보 및 리뷰 작성 기능
 
+- [Review Entity 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/Review.java)
+- [Review Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/ReviewController.java)
+
+<br>
+
 <p align="center">
 <img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221212051906612.png" alt="image-20221212051906612" style="zoom:67%;" />
 </p>
@@ -239,33 +251,31 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 리뷰 삭제의 경우도, 비밀번호를 입력해야 삭제할 수 있으며, 게시글을 작성한 아이디의 비밀번호와 일치해야 삭제가 되도록 구현하였다.
 
-- [Review Entity 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/Review.java)
-- [Review Controller 소스파일](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/ReviewController.java)
 
 
 ## 4. 게시판 기능 구현
 
+- [Post Entity 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/domain/entity/Post.java)
 - [PostController 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/controller/PostController.java)
 
 <br>
 
 ### 1. 게시글 작성 기능
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213234237695.png" alt="image-20221213234237695" style="zoom:80%;" />
+</p>
+
+게시글이 전혀 작성되어 있지 않은 상태이다.
+
+<br>
 
 
-```java
- @PostMapping("")
-    public String add(PostCreateRequest postCreateRequest,Model model) {
-        User user = userService.getUserByUserAccount(postCreateRequest.getUserAccount());
-        if (encoder.matches(postCreateRequest.getPassword(), user.getPassword())) {
-            Post savedPost = postService.createPost(new Post(postCreateRequest, user));
-            return "redirect:/posts/" + savedPost.getId();
-        }
-        model.addAttribute("message", "비밀번호가 일치하지 않습니다.");
-        return "posts/error";
-    }
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213234339986.png" alt="image-20221213234339986" style="zoom:80%;" />
+</p>
 
-```
+게시글 등록 버튼을 클릭하면 위 페이지가 나타난다.
 
 게시글 작성 기능도 리뷰 작성 기능과 마찬가지로, DB에 회원으로 저장되어 있는 경우만 작성 가능하다.
 
@@ -273,15 +283,17 @@ JpaRepository 를 상속받는 Hospital Repository의 Jpa 메서드 명명규칙
 
 <br>
 
+<p align="center">
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20221213234523418.png" alt="image-20221213234523418" style="zoom: 80%;" />
+</p>
+
+회원가입 된 계정으로 테스트 게시글을 작성하였다. 게시글 제목을 클릭하면, 
+
+<br>
+
 ### 2. 게시글 삭제 기능
 
-```java
- @GetMapping("/{id}/delete")
-    public String delete(@PathVariable(name = "id") Long id) {
-        postService.deleteOne(id);
-        return "redirect:/posts";
-    }
-```
+
 
 `JpaRepository` 를 상속받은 `PostRepository` 의 메서드 명명규칙으로 만든 메서드로,
 
