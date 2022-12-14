@@ -29,18 +29,19 @@ public class HospitalJdbcRepository {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Hospital hospital = hospitalList.get(i);
-                ps.setString(1, hospital.getOpenServiceName());
-                ps.setInt(2, hospital.getBusinessStatus());
-                ps.setString(3, hospital.getPhone());
-                ps.setString(4, hospital.getZipCode());
-                ps.setString(5, hospital.getFullAddress());
-                ps.setString(6, hospital.getRoadNameAddress());
-                ps.setString(7, hospital.getHospitalName());
-                ps.setString(8, hospital.getBusinessTypeName());
-                ps.setInt(9, hospital.getHealthcareProviderCount());
-                ps.setInt(10, hospital.getPatientRoomCount());
-                ps.setInt(11, hospital.getTotalNumberOfBeds());
-                ps.setString(12, hospital.getMedicalDepartment());}
+                int parameterIndex = 1;
+                ps.setString(parameterIndex++, hospital.getOpenServiceName());
+                ps.setInt(parameterIndex++, hospital.getBusinessStatus());
+                ps.setString(parameterIndex++, hospital.getPhone());
+                ps.setString(parameterIndex++, hospital.getZipCode());
+                ps.setString(parameterIndex++, hospital.getFullAddress());
+                ps.setString(parameterIndex++, hospital.getRoadNameAddress());
+                ps.setString(parameterIndex++, hospital.getHospitalName());
+                ps.setString(parameterIndex++, hospital.getBusinessTypeName());
+                ps.setInt(parameterIndex++, hospital.getHealthcareProviderCount());
+                ps.setInt(parameterIndex++, hospital.getPatientRoomCount());
+                ps.setInt(parameterIndex++, hospital.getTotalNumberOfBeds());
+                ps.setString(parameterIndex, hospital.getMedicalDepartment());}
         });
     }
 }

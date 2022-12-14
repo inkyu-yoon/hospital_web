@@ -3,10 +3,6 @@ package hospital.web;
 import hospital.web.domain.entity.Hospital;
 import hospital.web.parser.ReadData;
 import hospital.web.repository.HospitalJdbcRepository;
-import hospital.web.repository.HospitalJpaRepository;
-import hospital.web.service.HospitalService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
