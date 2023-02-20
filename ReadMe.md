@@ -114,9 +114,16 @@ SPRING_DATASOURCE_URL=jdbc:mysql://ec2주소/DB명;SPRING_DATASOURCE_PASSWORD=�
 
 jpa가 아닌 jdbc batchupdate 기능으로 약 12만건의 데이터를 빠르게 입력할 수 있었다.
 
+t3 small ec2 기준, Jpa로 데이터를 입력했을 경우 **4434104ms = 4434초(약 74분)** 가 소요되었지만,
+
+대용량 데이터 입력 성능을 위해 jdbc batch update 를 적용하여 **12822ms = 약 12초**로 비약적으로 단축시킬 수 있었다.
+
+<img src="https://raw.githubusercontent.com/buinq/imageServer/main/img/image-20230220190742611.png" alt="image-20230220190742611" style="zoom: 67%;" />
+
 - [HospitalJdbcRepository 소스코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/repository/HospitalJdbcRepository.java)
 
 - [데이터 입력 실행 메인 소스 코드](https://github.com/inkyu-yoon/hospital_web/blob/main/src/main/java/hospital/web/InsertData.java)
+
 
 
 <br>
