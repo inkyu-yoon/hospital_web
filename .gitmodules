@@ -1,0 +1,3 @@
+[submodule "hospital_project_env"]
+	path = hospital_project_env
+	url = https://github.com/inkyu-yoon/hospital_project_env.git
