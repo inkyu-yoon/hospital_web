@@ -2,6 +2,7 @@ server:
   servlet:
     encoding:
       force-response: true #한글 깨짐 오류 해결
+  port: 8081
 spring:
   datasource:
     url: jdbc:mysql://localhost/inkyu-db?&rewriteBatchedStatements=true
