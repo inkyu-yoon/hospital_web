@@ -9,6 +9,16 @@
 
 <br>
 
+## 개발 환경 및 배포 주소
+
+<br>
+
+Java 11 · Spring Boot 2.7.5 · Spring Security · Jdbc · JPA · MySQL 8.0 · AWS EC2 · Docker
+
+배포 주소 : [http://ec2-13-231-48-116.ap-northeast-1.compute.amazonaws.com:8081/hospitals](http://ec2-13-231-48-116.ap-northeast-1.compute.amazonaws.com:8081/hospitals)
+
+<br>
+
 ## 병·의원 데이터 정보 및 라이브러리
 
 데이터 출처 : https://www.localdata.go.kr/devcenter/dataDown.do?menuNo=20001
